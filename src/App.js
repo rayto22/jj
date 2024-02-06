@@ -6,7 +6,7 @@ import VocabularyRepetition from './components/vocabulary/Repetition';
 function App() {
     return (
         <Routes>
-            <Route path="/" element={<Outlet />}>
+            <Route path="/jj" element={<Outlet />}>
                 <Route index element={<IndexPage />} />
             </Route>
             <Route path="/hiragana" element={<Outlet />}>
