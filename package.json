@@ -1,8 +1,8 @@
 {
-  "homepage": "http://rayto22.github.io/JJ",
-  "name": "my-app",
+  "homepage": "http://rayto22.github.io/jj",
+  "name": "jj",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
