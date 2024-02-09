@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react';
-import { styled } from 'styled-components';
+import useSideTaps from '../../hooks/useSideTaps';
 
 interface Props {
     hint: string;
@@ -9,14 +9,16 @@ interface Props {
 const TaskHelp: FC<Props> = ({ hint, onSecondClick }) => {
     const [showHelp, setShowHelp] = useState<boolean>(false);
     const onClickHandler = () => {
-        setShowHelp((state) => !state);
+        setShowHelp((state) => {
+            if (state) {
+                onSecondClick();
+            }
 
-        console.log(showHelp);
-
-        if (showHelp) {
-            onSecondClick();
-        }
+            return !state;
+        });
     };
+
+    useSideTaps({ rightTapHandler: onClickHandler });
 
     useEffect(() => {
         setShowHelp(false);
