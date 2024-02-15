@@ -10,7 +10,6 @@ import TaskOutput from '../shared/TaskOutput';
 import TaskRomaji from '../shared/TaskRomaji';
 import TaskHelp from '../shared/TasxHelp';
 import ProgressSection from '../shared/ProgressSection';
-import Mode from './Mode';
 import Tomes from './Tomes';
 
 import { getVocabulary } from '../../utils/sheetManager';
@@ -57,10 +56,6 @@ const Repetition: FC = () => {
                 </>
             ) : (
                 <>
-                    <Mode
-                        setVocabulary={(data) => setVocabulary(data)}
-                        vocabularyCache={vocabularyCache}
-                    ></Mode>
                     <Tomes
                         setVocabulary={(data) => setVocabulary(data)}
                         vocabularyCache={vocabularyCache}

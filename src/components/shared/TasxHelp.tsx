@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from 'react';
-import useSideTaps from '../../hooks/useSideTaps';
+import useSideActions from '../../hooks/useSideActions';
+import styled from 'styled-components';
 
 interface Props {
     hint: string;
@@ -18,27 +19,27 @@ const TaskHelp: FC<Props> = ({ hint, onSecondClick }) => {
         });
     };
 
-    useSideTaps({ rightTapHandler: onClickHandler });
+    useSideActions({
+        rightTapHandler: onClickHandler,
+        rightArrowDownHandler: onClickHandler,
+    });
 
     useEffect(() => {
         setShowHelp(false);
     }, [hint]);
 
-    const onKeyDown = (event: KeyboardEvent) => {
-        if (event.code === 'ArrowRight') {
-            onClickHandler();
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('keydown', onKeyDown);
-
-        return () => {
-            document.removeEventListener('keydown', onKeyDown);
-        };
-    }, [onClickHandler]);
-
-    return <button onClick={onClickHandler}>{showHelp ? hint : 'Help'}</button>;
+    return (
+        <StyledButton onClick={onClickHandler} $isVisible={showHelp}>
+            {showHelp ? hint : 'Help'}
+        </StyledButton>
+    );
 };
+
+const StyledButton = styled.button<{ $isVisible: boolean }>`
+    display: block;
+    border: 0;
+    border-top: 1px solid grey;
+    ${({ $isVisible }) => !$isVisible && `display: none;`}
+`;
 
 export default TaskHelp;

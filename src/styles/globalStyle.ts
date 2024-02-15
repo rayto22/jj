@@ -8,10 +8,12 @@ const GlobalStyle = createGlobalStyle`
     
     body {
         min-height: 100%;
+        background-color: #edd1b0;
     }
 
     button { 
         font-size: inherit;
+        background-color: transparent;
     }
 `;
 
