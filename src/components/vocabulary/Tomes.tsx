@@ -24,7 +24,7 @@ const Tomes: FC<Props> = ({ setVocabulary, vocabularyCache }) => {
 
     useEffect(() => {
         setToms(createTomes());
-    }, [vocabularyCache]);
+    }, [vocabularyCache, tomeSize]);
 
     return (
         <>
@@ -32,6 +32,7 @@ const Tomes: FC<Props> = ({ setVocabulary, vocabularyCache }) => {
                 value={tomeSize}
                 onChange={(e) => setTomeSize(+e.target.value)}
             >
+                <option value="9999999999">All</option>
                 <option value="100">100</option>
                 <option value="50">50</option>
                 <option value="25">25</option>
@@ -42,9 +43,9 @@ const Tomes: FC<Props> = ({ setVocabulary, vocabularyCache }) => {
                         <a
                             href="#"
                             onClick={() => setVocabulary(shuffle(tome))}
-                        >{`${index * 100 + 1} - ${index * 100 + tome.length} (${
-                            tome[0].kanamoji
-                        }, ${tome[1].kanamoji} ... ${
+                        >{`${index * tomeSize + 1} - ${
+                            index * tomeSize + tome.length
+                        } (${tome[0].kanamoji}, ${tome[1].kanamoji} ... ${
                             tome[tome.length - 2].kanamoji
                         }, ${tome[tome.length - 1].kanamoji})`}</a>
                     </li>
