@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
         background-color: #edd1b0;
     }
 
-    button { 
+    button, select { 
         font-size: inherit;
         background-color: transparent;
     }
