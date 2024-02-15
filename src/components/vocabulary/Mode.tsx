@@ -32,9 +32,7 @@ const Mode: FC<Props> = ({ setVocabulary, vocabularyCache }) => {
         <>
             <select value={mode} onChange={(e) => setMode(e.target.value)}>
                 <option value="all">Full Repetition</option>
-                <option value="last100" selected>
-                    Last 100 words
-                </option>
+                <option value="last100">Last 100 words</option>
             </select>
             <button onClick={selectMode}>Select Repetition mode</button>
         </>

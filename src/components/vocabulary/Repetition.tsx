@@ -1,4 +1,4 @@
-import { useState, useMemo, FC, useEffect } from 'react';
+import { useState, FC, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { VocabularyUnit, VocabularyUnits } from '../../interfaces/types';
 // import TaskOutput from '@/components/shared/TaskOutput';
@@ -7,12 +7,11 @@ import { VocabularyUnit, VocabularyUnits } from '../../interfaces/types';
 // import TaskHelp from '@/components/shared/TasxHelp';
 
 import TaskOutput from '../shared/TaskOutput';
-import TaskInput from '../shared/TaskInput';
 import TaskRomaji from '../shared/TaskRomaji';
 import TaskHelp from '../shared/TasxHelp';
 import ProgressSection from '../shared/ProgressSection';
 import Mode from './Mode';
-import Toms from './Toms';
+import Tomes from './Tomes';
 
 import { getVocabulary } from '../../utils/sheetManager';
 
@@ -53,11 +52,6 @@ const Repetition: FC = () => {
                                     onSecondClick={goToNextTask}
                                 />
                             </CenteredDiv>
-
-                            {/* <TaskInput
-                        correctAnswer={currentTask.eng}
-                        onCorrectAnswer={goToNextTask}
-                    /> */}
                         </Container>
                     )}
                 </>
@@ -67,10 +61,10 @@ const Repetition: FC = () => {
                         setVocabulary={(data) => setVocabulary(data)}
                         vocabularyCache={vocabularyCache}
                     ></Mode>
-                    <Toms
+                    <Tomes
                         setVocabulary={(data) => setVocabulary(data)}
                         vocabularyCache={vocabularyCache}
-                    ></Toms>
+                    ></Tomes>
                 </>
             )}
         </>
