@@ -11,6 +11,8 @@ import TaskRomaji from '../shared/TaskRomaji';
 import TaskHelp from '../shared/TasxHelp';
 import ProgressSection from '../shared/ProgressSection';
 import Tomes from './Tomes';
+import RepeatExerciseButton from '../shared/RepeatExerciseButton';
+import { shuffle } from '../../utils/utils';
 
 import { getVocabulary } from '../../utils/sheetManager';
 
@@ -23,6 +25,11 @@ const Repetition: FC = () => {
 
     const goToNextTask = () => {
         setCurrentTaskIndex((state) => state + 1);
+    };
+
+    const shuffleAndRepeat = () => {
+        setVocabulary((state) => shuffle(state));
+        setCurrentTaskIndex(0);
     };
 
     useEffect(() => {
@@ -40,7 +47,12 @@ const Repetition: FC = () => {
                         taskIndex={currentTaskIndex}
                     />
                     {!currentTask ? (
-                        <div>End</div>
+                        <>
+                            <div>End</div>
+                            <RepeatExerciseButton
+                                onClick={shuffleAndRepeat}
+                            ></RepeatExerciseButton>
+                        </>
                     ) : (
                         <Container>
                             <TaskOutput task={currentTask.kanamoji} />

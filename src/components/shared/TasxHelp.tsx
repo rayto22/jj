@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useRef } from 'react';
 import useSideActions from '../../hooks/useSideActions';
 import styled from 'styled-components';
 
@@ -10,13 +10,11 @@ interface Props {
 const TaskHelp: FC<Props> = ({ hint, onSecondClick }) => {
     const [showHelp, setShowHelp] = useState<boolean>(false);
     const onClickHandler = () => {
-        setShowHelp((state) => {
-            if (state) {
-                onSecondClick();
-            }
+        if (showHelp) {
+            onSecondClick();
+        }
 
-            return !state;
-        });
+        setShowHelp((state) => !state);
     };
 
     useSideActions({

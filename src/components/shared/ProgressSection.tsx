@@ -8,24 +8,27 @@ interface Props {
 
 const ProgressSection: FC<Props> = ({ taskLength, taskIndex }) => {
     const [timeSpentSec, setTimeSpentSec] = useState<number>(0);
-    const spentIntervalID = useMemo(
-        () =>
-            setInterval(() => {
-                setTimeSpentSec((state) => state + 1);
-            }, 1000),
-        []
-    );
+    const tasksFinished = taskLength === taskIndex;
 
     useEffect(() => {
-        if (taskLength !== 0 && taskIndex === taskLength) {
-            clearInterval(spentIntervalID);
+        let spentIntervalID: number;
+
+        if (taskIndex === 0) {
+            spentIntervalID = window.setInterval(() => {
+                setTimeSpentSec((state) => state + 1);
+            }, 1000);
+            setTimeSpentSec(0);
         }
-    }, [taskIndex, taskLength]);
+
+        return () => {
+            clearInterval(spentIntervalID);
+        };
+    }, [tasksFinished]);
 
     return (
         <>
             <div>
-                {taskIndex} out of {taskLength}
+                {taskIndex}/{taskLength}
             </div>
             <div>{convertSecToMinSec(timeSpentSec)}</div>
         </>

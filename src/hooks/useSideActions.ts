@@ -14,12 +14,7 @@ interface EventListenerData {
     handler: (e: Event) => void;
 }
 
-const useSideActions = ({
-    leftTapHandler,
-    rightTapHandler,
-    leftArrowDownHandler,
-    rightArrowDownHandler,
-}: Props) => {
+const useSideActions = (props: Props) => {
     useEffect(() => {
         const body = document.querySelector('body');
         const eventListenerData: EventListenerData = isMobile
@@ -32,9 +27,9 @@ const useSideActions = ({
                       const mouseXPos = (e as MouseEvent).offsetX;
 
                       if (mouseXPos <= halfDivWidth) {
-                          leftTapHandler && leftTapHandler();
+                          props.leftTapHandler && props.leftTapHandler();
                       } else {
-                          rightTapHandler && rightTapHandler();
+                          props.rightTapHandler && props.rightTapHandler();
                       }
                   },
               }
@@ -43,9 +38,11 @@ const useSideActions = ({
                   event: 'keydown',
                   handler: (e: Event) => {
                       if ((e as KeyboardEvent).code === 'ArrowLeft') {
-                          leftArrowDownHandler && leftArrowDownHandler();
+                          props.leftArrowDownHandler &&
+                              props.leftArrowDownHandler();
                       } else if ((e as KeyboardEvent).code === 'ArrowRight') {
-                          rightArrowDownHandler && rightArrowDownHandler();
+                          props.rightArrowDownHandler &&
+                              props.rightArrowDownHandler();
                       }
                   },
               };
@@ -61,7 +58,7 @@ const useSideActions = ({
                 eventListenerData.handler
             );
         };
-    }, []);
+    }, [props]);
 };
 
 export default useSideActions;
