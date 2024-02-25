@@ -20,7 +20,7 @@ const useSideActions = (props: Props) => {
         const eventListenerData: EventListenerData = isMobile
             ? {
                   target: body,
-                  event: 'click',
+                  event: 'mouseup',
                   handler: (e: Event) => {
                       const divWidth = body.getBoundingClientRect().width;
                       const halfDivWidth = divWidth / 2;
