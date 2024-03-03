@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import { VocabularyUnits } from '../../interfaces/types';
 import { shuffle } from '../../utils/utils';
+import Tome from './Tome';
 
 interface Props {
     setVocabulary: (vocabulary: VocabularyUnits) => void;
@@ -40,16 +41,13 @@ const Tomes: FC<Props> = ({ setVocabulary, vocabularyCache }) => {
             </select>
             <ul>
                 {tomes.map((tome, index) => (
-                    <li key={tome[0].eng}>
-                        <a
-                            href="#"
-                            onClick={() => setVocabulary(shuffle(tome))}
-                        >{`${index * tomeSize + 1} - ${
-                            index * tomeSize + tome.length
-                        } (${tome[0].kanamoji}, ${tome[1].kanamoji} ... ${
-                            tome[tome.length - 2].kanamoji
-                        }, ${tome[tome.length - 1].kanamoji})`}</a>
-                    </li>
+                    <Tome
+                        key={tome[0].kanamoji + index + tomeSize}
+                        tome={tome}
+                        tomeIndex={index}
+                        tomeMaxSize={tomeSize}
+                        onTomeClick={() => setVocabulary(shuffle(tome))}
+                    />
                 ))}
             </ul>
         </>
