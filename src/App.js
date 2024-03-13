@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import IndexPage from './components/IndexPage';
 import TestForm from './components/TestForm';
 import VocabularyRepetition from './components/vocabulary/Repetition';
@@ -9,15 +9,12 @@ function App() {
         <>
             <GlobalStyle />
             <Routes>
-                <Route path="/jj" element={<Outlet />}>
-                    <Route index element={<IndexPage />} />
-                </Route>
-                <Route path="/hiragana" element={<Outlet />}>
-                    <Route index element={<TestForm />} />
-                </Route>
-                <Route path="/vocabularyRepetition" element={<Outlet />}>
-                    <Route index element={<VocabularyRepetition />} />
-                </Route>
+                <Route path="/jj" element={<IndexPage />} />
+                <Route path="/hiragana" element={<TestForm />} />
+                <Route
+                    path="/vocabularyRepetition"
+                    element={<VocabularyRepetition />}
+                />
             </Routes>
         </>
     );

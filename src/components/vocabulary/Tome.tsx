@@ -1,6 +1,6 @@
-import { FC, useState, useEffect } from 'react';
+import { FC } from 'react';
 import { VocabularyUnits } from '../../interfaces/types';
-import { shuffle } from '../../utils/utils';
+import styled from 'styled-components';
 
 interface Props {
     tome: VocabularyUnits;
@@ -19,18 +19,23 @@ const Tome: FC<Props> = ({ tome, tomeIndex, tomeMaxSize, onTomeClick }) => {
         tome.length > 3 ? `${tome[tome.length - 2].kanamoji}, ` : '';
     const tomePortionHeadline4 =
         tome.length > 2 ? tome[tome.length - 1].kanamoji : '';
-    // const assembledHeadline = `${tomeIndexHeadline} (${tomePortionHeadline1}${tomePortionHeadline2 ? })`;
     const assembledHeadline = `${tomeIndexHeadline} (${tomePortionHeadline1}${tomePortionHeadline2}${
         tomePortionHeadline3 || tomePortionHeadline4 ? ' ... ' : ''
     }${tomePortionHeadline3}${tomePortionHeadline4})`;
 
     return (
         <li key={tome[0].eng}>
-            <a href="#" onClick={onTomeClick}>
+            <SpanLikeLink onClick={onTomeClick}>
                 {assembledHeadline}
-            </a>
+            </SpanLikeLink>
         </li>
     );
 };
+
+const SpanLikeLink = styled.span`
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+`;
 
 export default Tome;
