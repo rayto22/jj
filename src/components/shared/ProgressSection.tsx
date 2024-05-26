@@ -1,5 +1,5 @@
 import { FC, useEffect, useState, useMemo } from 'react';
-import { convertSecToMinSec } from './../../utils';
+import { convertSecToMinSec } from 'utils/utils';
 
 interface Props {
     taskLength: number;

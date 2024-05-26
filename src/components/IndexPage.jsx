@@ -12,6 +12,9 @@ export default function IndexPage() {
                         Vocabulary Repetition
                     </Link>
                 </li>
+                <li>
+                    <Link to="/everydayRepetition">Everyday Repetition</Link>
+                </li>
             </ul>
         </div>
     );

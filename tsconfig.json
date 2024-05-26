@@ -13,11 +13,11 @@
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-        "@/*": ["./src/*"],
+        "@/*": ["./*"],
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "src"],
   "exclude": ["node_modules"]
 }

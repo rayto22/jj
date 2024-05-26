@@ -1,24 +1,26 @@
 import { useState, FC, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { VocabularyUnit, VocabularyUnits } from '../../interfaces/types';
-// import TaskOutput from '@/components/shared/TaskOutput';
-// import TaskInput from '@/components/shared/TaskInput';
-// import TaskRomaji from '@/components/shared/TaskRomaji';
-// import TaskHelp from '@/components/shared/TasxHelp';
+import { VocabularyUnit, VocabularyUnits } from 'interfaces/types';
 
-import TaskOutput from '../shared/TaskOutput';
-import TaskRomaji from '../shared/TaskRomaji';
-import TaskHelp from '../shared/TasxHelp';
-import ProgressSection from '../shared/ProgressSection';
+import TaskOutput from 'components/shared/TaskOutput';
+import TaskRomaji from 'components/shared/TaskRomaji';
+import TaskHelp from 'components/shared/TasxHelp';
+import ProgressSection from 'components/shared/ProgressSection';
 import Tomes from './Tomes';
-import RepeatExerciseButton from '../shared/RepeatExerciseButton';
-import { shuffle } from '../../utils/utils';
+import RepeatExerciseButton from 'components/shared/RepeatExerciseButton';
+import { shuffle } from 'utils/utils';
 
-import { getVocabulary } from '../../utils/sheetManager';
+import { getVocabulary } from 'utils/sheetManager';
+import FinishEverydayRepetition from './FinishEverydayRepetition';
 
 const Repetition: FC = () => {
+    const { state } = useLocation();
+
     const [vocabularyCache, setVocabularyCache] = useState<VocabularyUnits>();
-    const [vocabulary, setVocabulary] = useState<VocabularyUnits>(null);
+    const [vocabulary, setVocabulary] = useState<VocabularyUnits>(() => {
+        return state?.sessionTask && shuffle(state.sessionTask);
+    });
     const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
     const currentTask: VocabularyUnit =
         vocabulary && vocabulary[currentTaskIndex];
@@ -52,6 +54,13 @@ const Repetition: FC = () => {
                             <RepeatExerciseButton
                                 onClick={shuffleAndRepeat}
                             ></RepeatExerciseButton>
+                            {state.leftToRepeatAfterFinishing ? (
+                                <FinishEverydayRepetition
+                                    leftToRepeatAfterFinishing={
+                                        state.leftToRepeatAfterFinishing
+                                    }
+                                />
+                            ) : null}
                         </>
                     ) : (
                         <Container>
