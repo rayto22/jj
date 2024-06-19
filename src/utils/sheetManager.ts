@@ -46,9 +46,18 @@ export const getGoogleSheetData = <T>({
             const txt = data.substring(47).slice(0, -2);
             const json = JSON.parse(txt).table;
             const parsedTable: Array<AbstractUnit> = [];
-            const rowHeaders: Array<keyof AbstractUnit> = json.cols.map(
-                (col: { label: string }) => col.label
-            );
+            let rowHeaders: Array<keyof AbstractUnit>;
+
+            if (json.parsedNumHeaders === 1) {
+                rowHeaders = json.cols.map(
+                    (col: { label: string }) => col.label
+                );
+            } else {
+                rowHeaders = json.rows[0].c.map((data: GoogleSheetCell) =>
+                    getCellData(data)
+                );
+                json.rows.shift();
+            }
 
             console.log(json);
 
