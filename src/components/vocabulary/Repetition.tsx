@@ -13,6 +13,7 @@ import { shuffle } from 'utils/utils';
 
 import { getVocabulary } from 'utils/sheetManager';
 import FinishEverydayRepetition from './FinishEverydayRepetition';
+import Sidebar from 'components/sidebar/Sidebar';
 
 const Repetition: FC = () => {
     const { state } = useLocation();
@@ -48,13 +49,14 @@ const Repetition: FC = () => {
                         taskLength={vocabulary.length}
                         taskIndex={currentTaskIndex}
                     />
+                    {/* <Sidebar></Sidebar> */}
                     {!currentTask ? (
                         <>
                             <div>End</div>
                             <RepeatExerciseButton
                                 onClick={shuffleAndRepeat}
                             ></RepeatExerciseButton>
-                            {state.leftToRepeatAfterFinishing ? (
+                            {state?.leftToRepeatAfterFinishing ? (
                                 <FinishEverydayRepetition
                                     leftToRepeatAfterFinishing={
                                         state.leftToRepeatAfterFinishing
