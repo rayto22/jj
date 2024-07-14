@@ -1,5 +1,6 @@
 import { FC, useEffect, useState, useMemo } from 'react';
 import { convertSecToMinSec } from 'utils/utils';
+import { styled } from 'styled-components';
 
 interface Props {
     taskLength: number;
@@ -26,13 +27,17 @@ const ProgressSection: FC<Props> = ({ taskLength, taskIndex }) => {
     }, [tasksFinished]);
 
     return (
-        <>
+        <Wrap>
             <div>
                 {taskIndex}/{taskLength}
             </div>
             <div>{convertSecToMinSec(timeSpentSec)}</div>
-        </>
+        </Wrap>
     );
 };
+
+const Wrap = styled.div`
+    margin-left: 0.5rem;
+`;
 
 export default ProgressSection;

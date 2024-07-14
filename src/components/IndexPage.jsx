@@ -15,6 +15,11 @@ export default function IndexPage() {
                 <li>
                     <Link to="/everydayRepetition">Everyday Repetition</Link>
                 </li>
+                <li>
+                    <Link to="/cherryPickRepetition">
+                        Cherry Pick Repetition
+                    </Link>
+                </li>
             </ul>
         </div>
     );

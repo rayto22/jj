@@ -13,7 +13,7 @@ import { shuffle } from 'utils/utils';
 
 import { getVocabulary } from 'utils/sheetManager';
 import FinishEverydayRepetition from './FinishEverydayRepetition';
-import Sidebar from 'components/sidebar/Sidebar';
+import CherryPickWordList from 'components/sidebar/CherryPickWordList';
 
 const Repetition: FC = () => {
     const { state } = useLocation();
@@ -36,9 +36,13 @@ const Repetition: FC = () => {
     };
 
     useEffect(() => {
-        getVocabulary().then((vocabulary: VocabularyUnits) => {
-            setVocabularyCache(vocabulary);
-        });
+        if (state?.customVocabularyCache) {
+            setVocabularyCache(state.customVocabularyCache);
+        } else {
+            getVocabulary().then((vocabulary: VocabularyUnits) => {
+                setVocabularyCache(vocabulary);
+            });
+        }
     }, []);
 
     return (
@@ -49,7 +53,10 @@ const Repetition: FC = () => {
                         taskLength={vocabulary.length}
                         taskIndex={currentTaskIndex}
                     />
-                    {/* <Sidebar></Sidebar> */}
+                    <CherryPickWordList
+                        fullSessionVocabulary={vocabulary}
+                        currentTaskIndex={currentTaskIndex}
+                    />
                     {!currentTask ? (
                         <>
                             <div>End</div>

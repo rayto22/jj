@@ -7,7 +7,7 @@ const Sidebar: FC<PropsWithChildren> = ({ children }) => {
 
     return (
         <SidebarWrapper $isOpen={isOpen}>
-            <SidebarContent>123</SidebarContent>
+            <SidebarContent>{children}</SidebarContent>
             <SidebarButton onClick={toggleIsOpen}>
                 {isOpen ? '<<' : '>>'}
             </SidebarButton>
@@ -40,7 +40,8 @@ const SidebarButton = styled.div`
     width: 40px;
     height: 40px;
     position: absolute;
-    top: calc(50vh - 20px);
+    /* top: calc(50vh - 20px); */ // To center vertically
+    top: 0.5rem;
     right: 0;
 
     background-color: #edd1b0;
