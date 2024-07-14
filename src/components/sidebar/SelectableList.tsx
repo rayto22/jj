@@ -30,7 +30,7 @@ const SelectableList: FC<Props> = ({ list, isSelected, onSelect }) => {
 };
 
 const ListWrap = styled.div`
-    height: 100vh;
+    height: 100%;
     overflow: auto;
 `;
 

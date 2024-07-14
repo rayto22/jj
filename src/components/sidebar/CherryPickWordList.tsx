@@ -45,7 +45,7 @@ const CherryPickWordList: FC<Props> = ({
 
         sessionWordsCopy.length = currentTaskIndex + 1;
 
-        return sessionWordsCopy;
+        return sessionWordsCopy.reverse();
     };
 
     return (
