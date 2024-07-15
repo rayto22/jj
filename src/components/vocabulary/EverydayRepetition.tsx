@@ -8,6 +8,7 @@ import {
     getLocalStorageData,
     setLocalStorageData,
 } from 'utils/localStorageUtils';
+import { shuffle } from 'utils/utils';
 
 const EverydayRepetition = () => {
     const navigate = useNavigate();
@@ -24,7 +25,9 @@ const EverydayRepetition = () => {
     );
 
     const loadLatestVocabulary = () => {
-        getVocabulary().then((payload: VocabularyUnits) => {
+        getVocabulary().then((payloadUnshaffled: VocabularyUnits) => {
+            const payload = shuffle(payloadUnshaffled);
+
             setLocalStorageData('vocabulary', payload);
             setLocalStorageData('vocabularyLeftToRepeat', payload);
             setLocalStorageData(
