@@ -6,9 +6,17 @@ interface Props {
     list: VocabularyUnits;
     isSelected: (item: VocabularyUnit) => boolean;
     onSelect: (item: VocabularyUnit) => void;
+    isWordReported: (item: VocabularyUnit) => boolean;
+    onReport: (item: VocabularyUnit) => void;
 }
 
-const SelectableList: FC<Props> = ({ list, isSelected, onSelect }) => {
+const SelectableList: FC<Props> = ({
+    list,
+    isSelected,
+    onSelect,
+    isWordReported,
+    onReport,
+}) => {
     return (
         <ListWrap>
             {list.map((item) => (
@@ -21,6 +29,11 @@ const SelectableList: FC<Props> = ({ list, isSelected, onSelect }) => {
                         />
                         <span>{item.kanamoji}</span>
                         <br />
+                        <ReportCheckbox
+                            type="checkbox"
+                            checked={isWordReported(item)}
+                            onChange={() => onReport(item)}
+                        />
                         <ItemEng>{item.eng}</ItemEng>
                     </label>
                 </Item>
@@ -39,8 +52,12 @@ const Item = styled.div`
     border-bottom: 0.5px solid black;
 `;
 
+const ReportCheckbox = styled.input`
+    accent-color: red;
+`;
+
 const ItemEng = styled.span`
-    margin-left: 1rem;
+    margin-left: 0.5rem;
 `;
 
 export default SelectableList;

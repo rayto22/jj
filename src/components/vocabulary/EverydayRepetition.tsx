@@ -57,7 +57,9 @@ const EverydayRepetition = () => {
     };
 
     const clearAll = () => {
-        localStorage.clear();
+        setLocalStorageData('vocabulary', []);
+        setLocalStorageData('vocabularyLeftToRepeat', []);
+        setLocalStorageData('vocabularyUpdateDate', '');
         setVocabulary([]);
     };
 

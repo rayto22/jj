@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { getLocalStorageData } from 'utils/localStorageUtils';
 
 export default function IndexPage() {
+    const hasReportedWords = getLocalStorageData('reportedWords')?.length;
+
     return (
         <div>
             <ul>
@@ -20,6 +23,11 @@ export default function IndexPage() {
                         Cherry Pick Repetition
                     </Link>
                 </li>
+                {hasReportedWords ? (
+                    <li>
+                        <Link to="/reportedWords">Reported Words</Link>
+                    </li>
+                ) : null}
             </ul>
         </div>
     );

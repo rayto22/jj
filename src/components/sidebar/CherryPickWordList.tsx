@@ -20,25 +20,45 @@ const CherryPickWordList: FC<Props> = ({
     const [cherryPickedWords, setCherryPickedWords] = useState<VocabularyUnits>(
         getLocalStorageData('cherryPickedWords') || []
     );
-    const findCherryPickedWord = (unit: VocabularyUnit) => {
-        return cherryPickedWords.find(
-            (cherryPickedWord) =>
-                cherryPickedWord.eng === unit.eng &&
-                cherryPickedWord.kanamoji === unit.kanamoji
+    const [reportedWords, setReportedWords] = useState<VocabularyUnits>(
+        getLocalStorageData('reportedWords') || []
+    );
+    const findWordInList = (unit: VocabularyUnit, list: VocabularyUnits) => {
+        return list.find(
+            (wordInList) =>
+                wordInList.eng === unit.eng &&
+                wordInList.kanamoji === unit.kanamoji
         );
     };
     const isWordCherryPicked = (unit: VocabularyUnit) =>
-        !!findCherryPickedWord(unit);
+        !!findWordInList(unit, cherryPickedWords);
+    const isWordReported = (unit: VocabularyUnit) =>
+        !!findWordInList(unit, reportedWords);
 
-    const onCherryPick = (unit: VocabularyUnit) => {
-        const cherryPickedWord = findCherryPickedWord(unit);
-        const newCherryPickedWords = cherryPickedWord
-            ? cherryPickedWords.filter((word) => cherryPickedWord !== word)
-            : [...cherryPickedWords, unit];
+    const onWordSelection = (
+        unit: VocabularyUnit,
+        list: VocabularyUnits,
+        LSName: string,
+        setter: (list: VocabularyUnits) => void
+    ) => {
+        const wordInList = findWordInList(unit, list);
+        const newList = wordInList
+            ? list.filter((word) => wordInList !== word)
+            : [...list, unit];
 
-        setLocalStorageData('cherryPickedWords', newCherryPickedWords);
-        setCherryPickedWords(newCherryPickedWords);
+        setLocalStorageData(LSName, newList);
+        setter(newList);
     };
+
+    const onCherryPick = (unit: VocabularyUnit) =>
+        onWordSelection(
+            unit,
+            cherryPickedWords,
+            'cherryPickedWords',
+            setCherryPickedWords
+        );
+    const onReport = (unit: VocabularyUnit) =>
+        onWordSelection(unit, reportedWords, 'reportedWords', setReportedWords);
 
     const getProcessedWords = () => {
         const sessionWordsCopy = [...fullSessionVocabulary];
@@ -54,6 +74,8 @@ const CherryPickWordList: FC<Props> = ({
                 list={getProcessedWords()}
                 isSelected={isWordCherryPicked}
                 onSelect={onCherryPick}
+                isWordReported={isWordReported}
+                onReport={onReport}
             />
         </Sidebar>
     );
