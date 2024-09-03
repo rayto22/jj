@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { styled } from 'styled-components';
 import { VocabularyUnits, VocabularyUnit } from '@/interfaces/types';
 import SelectableList from './SelectableList';
@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import {
     getLocalStorageData,
     setLocalStorageData,
+    LS_RECORD,
 } from 'utils/localStorageUtils';
 
 interface Props {
@@ -18,10 +19,10 @@ const CherryPickWordList: FC<Props> = ({
     currentTaskIndex,
 }) => {
     const [cherryPickedWords, setCherryPickedWords] = useState<VocabularyUnits>(
-        getLocalStorageData('cherryPickedWords') || []
+        getLocalStorageData(LS_RECORD.CHERRY_PICKED_WORDS) || []
     );
     const [reportedWords, setReportedWords] = useState<VocabularyUnits>(
-        getLocalStorageData('reportedWords') || []
+        getLocalStorageData(LS_RECORD.REPORTED_WORDS) || []
     );
     const findWordInList = (unit: VocabularyUnit, list: VocabularyUnits) => {
         return list.find(
@@ -38,7 +39,7 @@ const CherryPickWordList: FC<Props> = ({
     const onWordSelection = (
         unit: VocabularyUnit,
         list: VocabularyUnits,
-        LSName: string,
+        LSRecord: LS_RECORD,
         setter: (list: VocabularyUnits) => void
     ) => {
         const wordInList = findWordInList(unit, list);
@@ -46,7 +47,7 @@ const CherryPickWordList: FC<Props> = ({
             ? list.filter((word) => wordInList !== word)
             : [...list, unit];
 
-        setLocalStorageData(LSName, newList);
+        setLocalStorageData(LSRecord, newList);
         setter(newList);
     };
 
@@ -54,11 +55,16 @@ const CherryPickWordList: FC<Props> = ({
         onWordSelection(
             unit,
             cherryPickedWords,
-            'cherryPickedWords',
+            LS_RECORD.CHERRY_PICKED_WORDS,
             setCherryPickedWords
         );
     const onReport = (unit: VocabularyUnit) =>
-        onWordSelection(unit, reportedWords, 'reportedWords', setReportedWords);
+        onWordSelection(
+            unit,
+            reportedWords,
+            LS_RECORD.REPORTED_WORDS,
+            setReportedWords
+        );
 
     const getProcessedWords = () => {
         const sessionWordsCopy = [...fullSessionVocabulary];

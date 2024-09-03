@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { getLocalStorageData } from 'utils/localStorageUtils';
+import { getLocalStorageData, LS_RECORD } from 'utils/localStorageUtils';
 
 const CherryPickRepetition = () => {
     const navigate = useNavigate();
 
-    const cherryPickedWords = getLocalStorageData('cherryPickedWords') || [];
+    const cherryPickedWords =
+        getLocalStorageData(LS_RECORD.CHERRY_PICKED_WORDS) || [];
     const startRepetition = () => {
         navigate('/cherryPickRepetition/start', {
             state: {

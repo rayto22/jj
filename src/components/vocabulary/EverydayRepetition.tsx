@@ -7,6 +7,7 @@ import { getVocabulary } from 'utils/sheetManager';
 import {
     getLocalStorageData,
     setLocalStorageData,
+    LS_RECORD,
 } from 'utils/localStorageUtils';
 import { shuffle } from 'utils/utils';
 
@@ -15,9 +16,11 @@ const EverydayRepetition = () => {
 
     const localStorageData = {
         updateDate:
-            getLocalStorageData('vocabularyUpdateDate') ?? 'not loaded yet',
-        vocabulary: getLocalStorageData('vocabulary') ?? [],
-        leftToRepeat: getLocalStorageData('vocabularyLeftToRepeat') ?? [],
+            getLocalStorageData(LS_RECORD.MAIN_VOCABULARY_UPDATE_DATE) ??
+            'not loaded yet',
+        vocabulary: getLocalStorageData(LS_RECORD.MAIN_VOCABULARY) ?? [],
+        leftToRepeat:
+            getLocalStorageData(LS_RECORD.MAIN_VOCABULARY_LEFT_TO_REPEAT) ?? [],
     };
 
     const [vocabulary, setVocabulary] = useState<VocabularyUnits>(
@@ -28,10 +31,13 @@ const EverydayRepetition = () => {
         getVocabulary().then((payloadUnshaffled: VocabularyUnits) => {
             const payload = shuffle(payloadUnshaffled);
 
-            setLocalStorageData('vocabulary', payload);
-            setLocalStorageData('vocabularyLeftToRepeat', payload);
+            setLocalStorageData(LS_RECORD.MAIN_VOCABULARY, payload);
             setLocalStorageData(
-                'vocabularyUpdateDate',
+                LS_RECORD.MAIN_VOCABULARY_LEFT_TO_REPEAT,
+                payload
+            );
+            setLocalStorageData(
+                LS_RECORD.MAIN_VOCABULARY_UPDATE_DATE,
                 new Date().toLocaleString()
             );
             localStorageData.vocabulary = payload;
@@ -57,9 +63,9 @@ const EverydayRepetition = () => {
     };
 
     const clearAll = () => {
-        setLocalStorageData('vocabulary', []);
-        setLocalStorageData('vocabularyLeftToRepeat', []);
-        setLocalStorageData('vocabularyUpdateDate', '');
+        setLocalStorageData(LS_RECORD.MAIN_VOCABULARY, []);
+        setLocalStorageData(LS_RECORD.MAIN_VOCABULARY_LEFT_TO_REPEAT, []);
+        setLocalStorageData(LS_RECORD.MAIN_VOCABULARY_UPDATE_DATE, '');
         setVocabulary([]);
     };
 

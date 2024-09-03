@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
-import { getLocalStorageData } from 'utils/localStorageUtils';
+import { getLocalStorageData, LS_RECORD } from 'utils/localStorageUtils';
 
 export default function IndexPage() {
-    const hasReportedWords = getLocalStorageData('reportedWords')?.length;
+    const hasReportedWords = getLocalStorageData(
+        LS_RECORD.REPORTED_WORDS
+    )?.length;
 
     return (
         <div>
+            <hr />
             <ul>
                 <li>
                     <Link to="/hiragana">Hiragana</Link>
