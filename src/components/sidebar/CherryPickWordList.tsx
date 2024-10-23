@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { styled } from 'styled-components';
 import { VocabularyUnits, VocabularyUnit } from '@/interfaces/types';
 import SelectableList from './SelectableList';
 import Sidebar from './Sidebar';
@@ -19,10 +18,10 @@ const CherryPickWordList: FC<Props> = ({
     currentTaskIndex,
 }) => {
     const [cherryPickedWords, setCherryPickedWords] = useState<VocabularyUnits>(
-        getLocalStorageData(LS_RECORD.CHERRY_PICKED_WORDS) || []
+        () => getLocalStorageData(LS_RECORD.CHERRY_PICKED_WORDS) || []
     );
     const [reportedWords, setReportedWords] = useState<VocabularyUnits>(
-        getLocalStorageData(LS_RECORD.REPORTED_WORDS) || []
+        () => getLocalStorageData(LS_RECORD.REPORTED_WORDS) || []
     );
     const findWordInList = (unit: VocabularyUnit, list: VocabularyUnits) => {
         return list.find(

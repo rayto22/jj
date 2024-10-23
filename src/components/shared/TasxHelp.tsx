@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useRef } from 'react';
+import { FC, useState, useEffect } from 'react';
 import useSideActions from '../../hooks/useSideActions';
 import styled from 'styled-components';
 

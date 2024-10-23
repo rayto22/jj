@@ -4,17 +4,19 @@ export enum LS_RECORD {
     MAIN_VOCABULARY_LEFT_TO_REPEAT = 'vocabularyLeftToRepeat',
     CHERRY_PICKED_WORDS = 'cherryPickedWords',
     REPORTED_WORDS = 'reportedWords',
-    TRANSLATION_MODE_J_TO_E = 'translationModeJToE',
+    TRANSLATION_MODE_J_TO_E = 'translationModeJpToEn',
 }
+
+const isComplexData = (data: string) => data[0] === '[' || data[0] === '{';
+const isBooleanData = (data: string) =>
+    ['true', 'false'].some((boolValue) => data === boolValue);
 
 export const getLocalStorageData = (key: string) => {
     const data: string = localStorage.getItem(key);
 
     if (!data) return null;
 
-    const isComplexData = data[0] === '[' || data[0] === '{';
-
-    return isComplexData ? JSON.parse(data) : data;
+    return isComplexData(data) || isBooleanData(data) ? JSON.parse(data) : data;
 };
 
 export const setLocalStorageData = (key: string, value: unknown) => {

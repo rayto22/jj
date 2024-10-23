@@ -12,8 +12,10 @@ import RepeatExerciseButton from 'components/shared/RepeatExerciseButton';
 import { shuffle } from 'utils/utils';
 
 import { getVocabulary } from 'utils/sheetManager';
-import FinishEverydayRepetition from './FinishEverydayRepetition';
 import CherryPickWordList from 'components/sidebar/CherryPickWordList';
+import Settings from 'components/settings/Settings';
+import FinishEverydayRepetition from './FinishEverydayRepetition';
+import RepetitionTaskBlock from './RepetitionTaskBlock';
 
 const Repetition: FC = () => {
     const { state } = useLocation();
@@ -57,6 +59,7 @@ const Repetition: FC = () => {
                         fullSessionVocabulary={vocabulary}
                         currentTaskIndex={currentTaskIndex}
                     />
+                    <Settings />
                     {!currentTask ? (
                         <>
                             <div>End</div>
@@ -73,14 +76,10 @@ const Repetition: FC = () => {
                         </>
                     ) : (
                         <Container>
-                            <TaskOutput task={currentTask.kanamoji} />
-                            <CenteredDiv>
-                                <TaskRomaji romaji={currentTask.romaji} />
-                                <TaskHelp
-                                    hint={currentTask.eng}
-                                    onSecondClick={goToNextTask}
-                                />
-                            </CenteredDiv>
+                            <RepetitionTaskBlock
+                                task={currentTask}
+                                goToNextTask={goToNextTask}
+                            />
                         </Container>
                     )}
                 </>

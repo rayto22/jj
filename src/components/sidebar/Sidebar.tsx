@@ -1,14 +1,18 @@
 import { FC, PropsWithChildren, useState } from 'react';
 import { styled } from 'styled-components';
 
-const Sidebar: FC<PropsWithChildren> = ({ children }) => {
+interface Props extends PropsWithChildren {
+    sidebarIndex?: number;
+}
+
+const Sidebar: FC<Props> = ({ sidebarIndex = 0, children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleIsOpen = () => setIsOpen((state) => !state);
 
     return (
         <SidebarWrapper $isOpen={isOpen}>
             <SidebarContent>{children}</SidebarContent>
-            <SidebarButton onClick={toggleIsOpen}>
+            <SidebarButton $buttonIndex={sidebarIndex} onClick={toggleIsOpen}>
                 {isOpen ? '<<' : '>>'}
             </SidebarButton>
         </SidebarWrapper>
@@ -20,10 +24,15 @@ const SidebarWrapper = styled.div<{ $isOpen: boolean }>`
     top: 0;
     left: 0;
     height: 100vh;
-    width: calc(70vw + 20px);
+    width: 70vw;
     margin-left: -70vw;
 
-    ${(props) => props.$isOpen && 'margin-left: 0'}
+    ${(props) =>
+        props.$isOpen &&
+        `
+        margin-left: 0;
+        z-index: 1;
+    `}
 `;
 
 const SidebarContent = styled.div`
@@ -36,13 +45,15 @@ const SidebarContent = styled.div`
     border-right: 1px solid black;
 `;
 
-const SidebarButton = styled.div`
+const SidebarButton = styled.div<{ $buttonIndex: number }>`
     width: 40px;
     height: 40px;
     position: absolute;
-    /* top: calc(50vh - 20px); */ // To center vertically
-    top: 0.5rem;
-    right: 0;
+    ${(props) =>
+        `top: ${
+            props.$buttonIndex * 40 + 12 + (props.$buttonIndex > 0 ? 5 : 0)
+        }px`};
+    right: -20px;
 
     background-color: #edd1b0;
     border: 1px solid black;
