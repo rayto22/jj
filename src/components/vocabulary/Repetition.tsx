@@ -16,6 +16,7 @@ import CherryPickWordList from 'components/sidebar/CherryPickWordList';
 import Settings from 'components/settings/Settings';
 import FinishEverydayRepetition from './FinishEverydayRepetition';
 import RepetitionTaskBlock from './RepetitionTaskBlock';
+import { VocabularyOverview } from './VocabularyOverview';
 
 const Repetition: FC = () => {
     const { state } = useLocation();
@@ -61,6 +62,10 @@ const Repetition: FC = () => {
                         cherryPickStorageKey={state?.cherryPickStorageKey}
                     />
                     <Settings />
+                    <VocabularyOverview
+                        fullSessionVocabulary={vocabulary}
+                        cherryPickStorageKey={state?.cherryPickStorageKey}
+                    />
                     {!currentTask ? (
                         <>
                             <div>End</div>

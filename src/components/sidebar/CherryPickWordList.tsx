@@ -10,14 +10,16 @@ import {
 
 interface Props {
     fullSessionVocabulary: VocabularyUnits;
-    currentTaskIndex: number;
+    currentTaskIndex?: number;
     cherryPickStorageKey?: LS_RECORD;
+    sidebarIndex?: number;
 }
 
 const CherryPickWordList: FC<Props> = ({
     fullSessionVocabulary,
     currentTaskIndex,
     cherryPickStorageKey = LS_RECORD.CHERRY_PICKED_WORDS,
+    sidebarIndex = 0,
 }) => {
     const [cherryPickedWords, setCherryPickedWords] = useState<VocabularyUnits>(
         () => getLocalStorageData(cherryPickStorageKey) || []
@@ -70,13 +72,15 @@ const CherryPickWordList: FC<Props> = ({
     const getProcessedWords = () => {
         const sessionWordsCopy = [...fullSessionVocabulary];
 
-        sessionWordsCopy.length = currentTaskIndex + 1;
+        if (Number.isInteger(currentTaskIndex)) {
+            sessionWordsCopy.length = currentTaskIndex + 1;
+        }
 
         return sessionWordsCopy.reverse();
     };
 
     return (
-        <Sidebar>
+        <Sidebar sidebarIndex={sidebarIndex}>
             <SelectableList
                 list={getProcessedWords()}
                 isSelected={isWordCherryPicked}

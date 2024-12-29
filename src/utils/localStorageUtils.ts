@@ -6,6 +6,7 @@ export enum LS_RECORD {
     SUPER_CHERRY_PICKED_WORDS = 'superCherryPickedWords',
     REPORTED_WORDS = 'reportedWords',
     TRANSLATION_MODE_J_TO_E = 'translationModeJpToEn',
+    VOCABULARY_DISPLAY_SETTING = 'vocabularyDisplaySetting',
 }
 
 const isComplexData = (data: string) => data[0] === '[' || data[0] === '{';

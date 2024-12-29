@@ -6,31 +6,29 @@ import {
     LS_RECORD,
 } from 'utils/localStorageUtils';
 
-const TranslationMode: FC = () => {
-    const [isJpToEn, setIsJpToEn] = useState<boolean>(
-        () => getLocalStorageData(LS_RECORD.TRANSLATION_MODE_J_TO_E) ?? true
+const VocabularyDisplaySetting: FC = () => {
+    const [showVocabulary, setShowVocabulary] = useState<boolean>(
+        () => getLocalStorageData(LS_RECORD.VOCABULARY_DISPLAY_SETTING) ?? false
     );
     const onModeChange = () => {
-        setIsJpToEn((state) => {
-            setLocalStorageData(LS_RECORD.TRANSLATION_MODE_J_TO_E, !state);
+        setShowVocabulary((state) => {
+            setLocalStorageData(LS_RECORD.VOCABULARY_DISPLAY_SETTING, !state);
             return !state;
         });
     };
-
-    console.log(isJpToEn);
 
     return (
         <div>
             <label>
                 <input
                     type="checkbox"
-                    checked={isJpToEn}
+                    checked={showVocabulary}
                     onChange={onModeChange}
                 />
-                <span>Translate JP to EN?</span>
+                <span>Display vocabulary</span>
             </label>
         </div>
     );
 };
 
-export default TranslationMode;
+export default VocabularyDisplaySetting;

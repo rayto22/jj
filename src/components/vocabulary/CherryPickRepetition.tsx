@@ -15,10 +15,12 @@ const CherryPickRepetition = () => {
         getLocalStorageData(LS_RECORD.CHERRY_PICKED_WORDS) || [];
     const superCherryPickedWords =
         getLocalStorageData(LS_RECORD.SUPER_CHERRY_PICKED_WORDS) || [];
-    const startRepetition = () => {
+    const startRepetition = ({ isSuper }: { isSuper?: boolean } = {}) => {
         navigate('/cherryPickRepetition/start', {
             state: {
-                customVocabularyCache: cherryPickedWords,
+                customVocabularyCache: isSuper
+                    ? superCherryPickedWords
+                    : cherryPickedWords,
                 cherryPickStorageKey: LS_RECORD.SUPER_CHERRY_PICKED_WORDS,
             },
         });
@@ -47,8 +49,14 @@ const CherryPickRepetition = () => {
     return (
         <>
             <div>
-                <Button onClick={startRepetition}>
+                <Button onClick={() => startRepetition()}>
                     Start Cherry Pick Repetion ({cherryPickedWords.length})
+                </Button>
+            </div>
+            <div>
+                <Button onClick={() => startRepetition({ isSuper: true })}>
+                    Start SUPER Cherry Pick Repetion (
+                    {superCherryPickedWords.length})
                 </Button>
             </div>
             <div>
