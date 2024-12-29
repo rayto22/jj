@@ -58,6 +58,7 @@ const Repetition: FC = () => {
                     <CherryPickWordList
                         fullSessionVocabulary={vocabulary}
                         currentTaskIndex={currentTaskIndex}
+                        cherryPickStorageKey={state?.cherryPickStorageKey}
                     />
                     <Settings />
                     {!currentTask ? (

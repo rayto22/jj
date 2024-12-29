@@ -3,6 +3,7 @@ export enum LS_RECORD {
     MAIN_VOCABULARY_UPDATE_DATE = 'vocabularyUpdateDate',
     MAIN_VOCABULARY_LEFT_TO_REPEAT = 'vocabularyLeftToRepeat',
     CHERRY_PICKED_WORDS = 'cherryPickedWords',
+    SUPER_CHERRY_PICKED_WORDS = 'superCherryPickedWords',
     REPORTED_WORDS = 'reportedWords',
     TRANSLATION_MODE_J_TO_E = 'translationModeJpToEn',
 }
