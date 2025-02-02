@@ -9,6 +9,7 @@ import {
     setLocalStorageData,
     LS_RECORD,
 } from 'utils/localStorageUtils';
+import { Select } from '../shared/Select';
 import { shuffle } from 'utils/utils';
 
 const EverydayRepetition = () => {
@@ -26,8 +27,11 @@ const EverydayRepetition = () => {
     const [vocabulary, setVocabulary] = useState<VocabularyUnits>(
         localStorageData.vocabulary
     );
+    const [repetitionChunkSize, setRepetitionChunkSize] = useState<number>(100);
 
     const loadLatestVocabulary = () => {
+        if (!confirm('Load latest?')) return;
+
         getVocabulary().then((payloadUnshaffled: VocabularyUnits) => {
             const payload = shuffle(payloadUnshaffled);
 
@@ -46,13 +50,21 @@ const EverydayRepetition = () => {
     };
 
     const startSession = () => {
-        const sessionTask = localStorageData.leftToRepeat.slice(0, 100);
-        const leftToRepeat = localStorageData.leftToRepeat[100]
+        const sessionTask = localStorageData.leftToRepeat.slice(
+            0,
+            repetitionChunkSize
+        );
+        const leftToRepeat = localStorageData.leftToRepeat[repetitionChunkSize]
             ? localStorageData.leftToRepeat.slice(
-                  99,
+                  repetitionChunkSize - 1,
                   localStorageData.leftToRepeat.length - 1
               )
             : [];
+
+        // console.log('------');
+        // console.log(vocabulary);
+        // console.log(sessionTask);
+        // console.log(leftToRepeat);
 
         navigate('/everydayRepetition/session', {
             state: {
@@ -63,6 +75,8 @@ const EverydayRepetition = () => {
     };
 
     const clearAll = () => {
+        if (!confirm('Clear all?')) return;
+
         setLocalStorageData(LS_RECORD.MAIN_VOCABULARY, []);
         setLocalStorageData(LS_RECORD.MAIN_VOCABULARY_LEFT_TO_REPEAT, []);
         setLocalStorageData(LS_RECORD.MAIN_VOCABULARY_UPDATE_DATE, '');
@@ -88,11 +102,24 @@ const EverydayRepetition = () => {
                 </tbody>
             </StatusTable>
 
-            <button onClick={loadLatestVocabulary}>
-                Load latest vocabulary
-            </button>
-            <button onClick={startSession}>Start Session</button>
-            <button onClick={clearAll}>Clear all</button>
+            <div>
+                <button onClick={loadLatestVocabulary}>
+                    Load latest vocabulary
+                </button>
+            </div>
+            <div>
+                <button onClick={startSession}>Start Session</button>
+            </div>
+            <div>
+                <button onClick={clearAll}>Clear all</button>
+            </div>
+            <div>
+                <Select
+                    value={repetitionChunkSize}
+                    optionsList={[100, 50, 25, 5]}
+                    onChange={(e) => setRepetitionChunkSize(+e.target.value)}
+                />
+            </div>
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import { VocabularyUnits } from '../../interfaces/types';
 import { shuffle } from '../../utils/utils';
+import { Select } from '../shared/Select';
 import Tome from './Tome';
 
 interface Props {
@@ -29,16 +30,11 @@ const Tomes: FC<Props> = ({ setVocabulary, vocabularyCache }) => {
 
     return (
         <>
-            <select
+            <Select
                 value={tomeSize}
+                optionsList={[100, 50, 25, 5]}
                 onChange={(e) => setTomeSize(+e.target.value)}
-            >
-                <option value="9999999999">All</option>
-                <option value="100">100</option>
-                <option value="50">50</option>
-                <option value="25">25</option>
-                <option value="5">5</option>
-            </select>
+            />
             <ul>
                 {tomes.map((tome, index) => (
                     <Tome
