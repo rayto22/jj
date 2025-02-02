@@ -56,15 +56,10 @@ const EverydayRepetition = () => {
         );
         const leftToRepeat = localStorageData.leftToRepeat[repetitionChunkSize]
             ? localStorageData.leftToRepeat.slice(
-                  repetitionChunkSize - 1,
-                  localStorageData.leftToRepeat.length - 1
+                  repetitionChunkSize,
+                  localStorageData.leftToRepeat.length
               )
             : [];
-
-        // console.log('------');
-        // console.log(vocabulary);
-        // console.log(sessionTask);
-        // console.log(leftToRepeat);
 
         navigate('/everydayRepetition/session', {
             state: {
@@ -116,7 +111,7 @@ const EverydayRepetition = () => {
             <div>
                 <Select
                     value={repetitionChunkSize}
-                    optionsList={[100, 50, 25, 5]}
+                    optionsList={[100, 50, 25, 15, 5]}
                     onChange={(e) => setRepetitionChunkSize(+e.target.value)}
                 />
             </div>
