@@ -3,14 +3,12 @@ import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { VocabularyUnit, VocabularyUnits } from 'interfaces/types';
 
-import TaskOutput from 'components/shared/TaskOutput';
-import TaskRomaji from 'components/shared/TaskRomaji';
-import TaskHelp from 'components/shared/TasxHelp';
 import ProgressSection from 'components/shared/ProgressSection';
 import Tomes from './Tomes';
 import RepeatExerciseButton from 'components/shared/RepeatExerciseButton';
 import { shuffle } from 'utils/utils';
 
+import { CachedWordsContextWrap } from 'context/CachedWordsContext';
 import { getVocabulary } from 'utils/sheetManager';
 import CherryPickWordList from 'components/sidebar/CherryPickWordList';
 import Settings from 'components/settings/Settings';
@@ -49,7 +47,7 @@ const Repetition: FC = () => {
     }, []);
 
     return (
-        <>
+        <CachedWordsContextWrap>
             {vocabulary ? (
                 <>
                     <ProgressSection
@@ -97,7 +95,7 @@ const Repetition: FC = () => {
                     ></Tomes>
                 </>
             )}
-        </>
+        </CachedWordsContextWrap>
     );
 };
 
