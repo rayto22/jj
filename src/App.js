@@ -2,8 +2,9 @@ import { Routes, Route } from 'react-router-dom';
 import IndexPage from './components/IndexPage';
 import TestForm from './components/TestForm';
 import VocabularyRepetition from './components/vocabulary/Repetition';
-import EverydayRepetition from 'components/vocabulary/EverydayRepetition';
-import CherryPickRepetition from 'components/vocabulary/CherryPickRepetition';
+import EverydayRepetition from './components/vocabulary/EverydayRepetition';
+import CherryPickRepetition from './components/vocabulary/CherryPickRepetition';
+import { ReportedWordsPage } from './components/vocabulary/ReportedWordsPage';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
                     path="/cherryPickRepetition/start"
                     element={<VocabularyRepetition />}
                 />
-                {/* <Route path="/reportedWords" element={}> */}
+                <Route path="/reportedWords" element={<ReportedWordsPage />} />
             </Routes>
         </>
     );

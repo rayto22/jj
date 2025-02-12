@@ -6,13 +6,14 @@ export const useReportedWords = ({
 }: {
     lsKey?: LS_RECORD;
 } = {}) => {
-    const { cachedWords, setCachedWords, isWordCached, cacheWord } =
-        useCachedWords({ lsKey });
+    const { cachedWords, isWordCached, cacheWord, resetCache } = useCachedWords(
+        { lsKey }
+    );
 
     return {
         reportedWords: cachedWords,
-        setReportedWords: setCachedWords,
         isWordReported: isWordCached,
         reportWord: cacheWord,
+        resetReport: resetCache,
     };
 };

@@ -6,12 +6,10 @@ export const useCherryPickedWords = ({
 }: {
     lsKey?: LS_RECORD;
 } = {}) => {
-    const { cachedWords, setCachedWords, isWordCached, cacheWord } =
-        useCachedWords({ lsKey });
+    const { cachedWords, isWordCached, cacheWord } = useCachedWords({ lsKey });
 
     return {
         cherryPickedWords: cachedWords,
-        setCherryPickedWords: setCachedWords,
         isWordCherryPicked: isWordCached,
         cherryPickWord: cacheWord,
     };

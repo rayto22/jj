@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useState } from 'react';
+import { FC } from 'react';
 import { styled } from 'styled-components';
 import { VocabularyUnits, VocabularyUnit } from '@/interfaces/types';
 

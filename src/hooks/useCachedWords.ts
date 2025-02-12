@@ -21,16 +21,20 @@ export const useCachedWords = ({ lsKey }: { lsKey: LS_RECORD }) => {
                 wordInCache.kanamoji === unit.kanamoji
         );
     };
+    const updateCache = (units: VocabularyUnits) => {
+        setLocalStorageData(lsKey, units);
+        setCachedWords(units);
+        cachedWordsContextValue.onLSRecordUpdate({ lsKey, originID });
+    };
     const cacheWord = (unit: VocabularyUnit) => {
         const wordInCache = findWordInCache(unit);
         const newCache = wordInCache
             ? cachedWords.filter((word) => wordInCache !== word)
             : [...cachedWords, unit];
 
-        setLocalStorageData(lsKey, newCache);
-        setCachedWords(newCache);
-        cachedWordsContextValue.onLSRecordUpdate({ lsKey, originID });
+        updateCache(newCache);
     };
+    const resetCache = () => updateCache([]);
 
     useEffect(() => {
         if (
@@ -41,5 +45,5 @@ export const useCachedWords = ({ lsKey }: { lsKey: LS_RECORD }) => {
         }
     }, [cachedWordsContextValue]);
 
-    return { cachedWords, setCachedWords, isWordCached, cacheWord };
+    return { cachedWords, isWordCached, cacheWord, updateCache, resetCache };
 };
