@@ -15,6 +15,7 @@ import Settings from 'components/settings/Settings';
 import FinishEverydayRepetition from './FinishEverydayRepetition';
 import RepetitionTaskBlock from './RepetitionTaskBlock';
 import { VocabularyOverview } from './VocabularyOverview';
+import { ReorderButton } from './ReorderButton';
 
 const Repetition: FC = () => {
     const { state } = useLocation();
@@ -89,6 +90,11 @@ const Repetition: FC = () => {
                 </>
             ) : (
                 <>
+                    <ReorderButton
+                        revert={() =>
+                            setVocabularyCache((state) => [...state.reverse()])
+                        }
+                    />
                     <Tomes
                         setVocabulary={(data) => setVocabulary(data)}
                         vocabularyCache={vocabularyCache}

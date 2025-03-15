@@ -7,6 +7,7 @@ export enum LS_RECORD {
     REPORTED_WORDS = 'reportedWords',
     TRANSLATION_MODE_J_TO_E = 'translationModeJpToEn',
     VOCABULARY_DISPLAY_SETTING = 'vocabularyDisplaySetting',
+    REVERTED_VOCABULARY_ORDER = 'revertedVocabularyOrder',
 }
 
 const isComplexData = (data: string) => data[0] === '[' || data[0] === '{';
