@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useLayoutEffect } from 'react';
 import useSideActions from '../../hooks/useSideActions';
 import styled from 'styled-components';
 
@@ -11,12 +11,15 @@ const TaskRomaji: FC<Props> = ({ romaji }) => {
     const toggleRomaji = () => setShowRomaji((state) => !state);
 
     useSideActions({
-        leftTapHandler: toggleRomaji,
-        leftArrowDownHandler: toggleRomaji,
+        leftSideActionHandler: toggleRomaji,
     });
 
+    useLayoutEffect(() => {
+        setShowRomaji(false);
+    }, [romaji]);
+
     return (
-        <StyledButton onClick={toggleRomaji} $isVisible={showRomaji}>
+        <StyledButton $isVisible={showRomaji}>
             {showRomaji ? romaji : 'Romaji'}
         </StyledButton>
     );

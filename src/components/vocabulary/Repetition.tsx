@@ -1,18 +1,23 @@
 import { useState, FC, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { VocabularyUnit, VocabularyUnits } from 'interfaces/types';
+import {
+    VocabularyUnit,
+    VocabularyUnits,
+    SESSION_TYPE,
+} from 'interfaces/types';
 
 import ProgressSection from 'components/shared/ProgressSection';
 import Tomes from './Tomes';
 import RepeatExerciseButton from 'components/shared/RepeatExerciseButton';
 import { shuffle } from 'utils/utils';
 
-import { CachedWordsContextWrap } from 'context/CachedWordsContext';
+import { CachedWordsContextProvider } from 'context/CachedWordsContext';
+import { SessionContextProvider } from 'context/SessionContext';
 import { getVocabulary } from 'utils/sheetManager';
 import CherryPickWordList from 'components/sidebar/CherryPickWordList';
 import Settings from 'components/settings/Settings';
-import FinishEverydayRepetition from './FinishEverydayRepetition';
+import { FinishSessionButton } from './FinishSessionButton';
 import RepetitionTaskBlock from './RepetitionTaskBlock';
 import { VocabularyOverview } from './VocabularyOverview';
 import { ReorderButton } from './ReorderButton';
@@ -48,60 +53,67 @@ const Repetition: FC = () => {
     }, []);
 
     return (
-        <CachedWordsContextWrap>
-            {vocabulary ? (
-                <>
-                    <ProgressSection
-                        taskLength={vocabulary.length}
-                        taskIndex={currentTaskIndex}
-                    />
-                    <CherryPickWordList
-                        fullSessionVocabulary={vocabulary}
-                        currentTaskIndex={currentTaskIndex}
-                        cherryPickStorageKey={state?.cherryPickStorageKey}
-                    />
-                    <Settings />
-                    <VocabularyOverview
-                        fullSessionVocabulary={vocabulary}
-                        cherryPickStorageKey={state?.cherryPickStorageKey}
-                    />
-                    {!currentTask ? (
-                        <>
-                            <div>End</div>
-                            <RepeatExerciseButton
-                                onClick={shuffleAndRepeat}
-                            ></RepeatExerciseButton>
-                            {state?.leftToRepeatAfterFinishing ? (
-                                <FinishEverydayRepetition
+        <CachedWordsContextProvider>
+            <SessionContextProvider isSessionInProgress={!!currentTask}>
+                {vocabulary ? (
+                    <>
+                        <ProgressSection
+                            taskLength={vocabulary.length}
+                            taskIndex={currentTaskIndex}
+                        />
+                        <CherryPickWordList
+                            fullSessionVocabulary={vocabulary}
+                            currentTaskIndex={currentTaskIndex}
+                            cherryPickStorageKey={state?.cherryPickStorageKey}
+                        />
+                        <Settings />
+                        <VocabularyOverview
+                            fullSessionVocabulary={vocabulary}
+                            cherryPickStorageKey={state?.cherryPickStorageKey}
+                        />
+                        {!currentTask ? (
+                            <>
+                                <div>End</div>
+                                <RepeatExerciseButton
+                                    onClick={shuffleAndRepeat}
+                                ></RepeatExerciseButton>
+                                <FinishSessionButton
+                                    sessionType={
+                                        state?.leftToRepeatAfterFinishing
+                                            ? SESSION_TYPE.EVERYDAY_REPETITION
+                                            : SESSION_TYPE.VOCABULARY_REPETITION
+                                    }
                                     leftToRepeatAfterFinishing={
-                                        state.leftToRepeatAfterFinishing
+                                        state?.leftToRepeatAfterFinishing
                                     }
                                 />
-                            ) : null}
-                        </>
-                    ) : (
-                        <Container>
-                            <RepetitionTaskBlock
-                                task={currentTask}
-                                goToNextTask={goToNextTask}
-                            />
-                        </Container>
-                    )}
-                </>
-            ) : (
-                <>
-                    <ReorderButton
-                        revert={() =>
-                            setVocabularyCache((state) => [...state.reverse()])
-                        }
-                    />
-                    <Tomes
-                        setVocabulary={(data) => setVocabulary(data)}
-                        vocabularyCache={vocabularyCache}
-                    ></Tomes>
-                </>
-            )}
-        </CachedWordsContextWrap>
+                            </>
+                        ) : (
+                            <Container>
+                                <RepetitionTaskBlock
+                                    task={currentTask}
+                                    goToNextTask={goToNextTask}
+                                />
+                            </Container>
+                        )}
+                    </>
+                ) : (
+                    <>
+                        <ReorderButton
+                            revert={() =>
+                                setVocabularyCache((state) => [
+                                    ...state.reverse(),
+                                ])
+                            }
+                        />
+                        <Tomes
+                            setVocabulary={(data) => setVocabulary(data)}
+                            vocabularyCache={vocabularyCache}
+                        ></Tomes>
+                    </>
+                )}
+            </SessionContextProvider>
+        </CachedWordsContextProvider>
     );
 };
 

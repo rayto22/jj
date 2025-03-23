@@ -1,10 +1,20 @@
 import { Routes, Route, HashRouter } from 'react-router-dom';
+
+import { PARENT_ROUTE, CHILD_ROUTE } from './interfaces/types';
+
 import IndexPage from './components/IndexPage';
 import TestForm from './components/TestForm';
 import VocabularyRepetition from './components/vocabulary/Repetition';
-import EverydayRepetition from './components/vocabulary/EverydayRepetition';
-import CherryPickRepetition from './components/vocabulary/CherryPickRepetition';
+import {
+    EverydayRepetitionLayout,
+    EverydayRepetitionMain,
+} from './components/EverydayRepetition';
+import {
+    CherryPickRepetitionLayout,
+    CherryPickRepetitionMain,
+} from './components/CherryPickRepetition';
 import { ReportedWordsPage } from './components/vocabulary/ReportedWordsPage';
+
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
@@ -12,29 +22,39 @@ function App() {
         <HashRouter>
             <GlobalStyle />
             <Routes>
-                <Route path="/" element={<IndexPage />} />
-                <Route path="/hiragana" element={<TestForm />} />
+                <Route path={PARENT_ROUTE.HOME} element={<IndexPage />} />
+                <Route path={PARENT_ROUTE.HIRAGANA} element={<TestForm />} />
                 <Route
-                    path="/vocabularyRepetition"
+                    path={PARENT_ROUTE.VOCABULARY_REPETITION}
                     element={<VocabularyRepetition />}
                 />
+
                 <Route
-                    path="/everydayRepetition"
-                    element={<EverydayRepetition />}
-                />
+                    path={PARENT_ROUTE.EVERYDAY_REPETITION}
+                    element={<EverydayRepetitionLayout />}
+                >
+                    <Route index element={<EverydayRepetitionMain />} />
+                    <Route
+                        path={CHILD_ROUTE.SESSION}
+                        element={<VocabularyRepetition />}
+                    />
+                </Route>
+
                 <Route
-                    path="/everydayRepetition/session"
-                    element={<VocabularyRepetition />}
-                />
+                    path={PARENT_ROUTE.CHERRY_PICK_REPETITION}
+                    element={<CherryPickRepetitionLayout />}
+                >
+                    <Route index element={<CherryPickRepetitionMain />} />
+                    <Route
+                        path={CHILD_ROUTE.SESSION}
+                        element={<VocabularyRepetition />}
+                    />
+                </Route>
+
                 <Route
-                    path="/cherryPickRepetition"
-                    element={<CherryPickRepetition />}
+                    path={PARENT_ROUTE.REPORTED_WORDS}
+                    element={<ReportedWordsPage />}
                 />
-                <Route
-                    path="/cherryPickRepetition/start"
-                    element={<VocabularyRepetition />}
-                />
-                <Route path="/reportedWords" element={<ReportedWordsPage />} />
             </Routes>
         </HashRouter>
     );

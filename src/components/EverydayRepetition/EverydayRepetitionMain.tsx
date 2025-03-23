@@ -1,18 +1,19 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { VocabularyUnits } from 'interfaces/types';
+import { VocabularyUnits, CHILD_ROUTE, SessionData } from 'interfaces/types';
 import { getVocabulary } from 'utils/sheetManager';
 import {
     getLocalStorageData,
     setLocalStorageData,
     LS_RECORD,
 } from 'utils/localStorageUtils';
-import { Select } from '../shared/Select';
 import { shuffle } from 'utils/utils';
 
-const EverydayRepetition = () => {
+import { Select } from '../shared/Select';
+
+export const EverydayRepetitionMain = () => {
     const navigate = useNavigate();
 
     const localStorageData = {
@@ -22,6 +23,7 @@ const EverydayRepetition = () => {
         vocabulary: getLocalStorageData(LS_RECORD.MAIN_VOCABULARY) ?? [],
         leftToRepeat:
             getLocalStorageData(LS_RECORD.MAIN_VOCABULARY_LEFT_TO_REPEAT) ?? [],
+        sessionHistory: getLocalStorageData(LS_RECORD.SESSION_HISTORY) ?? [],
     };
 
     const [vocabulary, setVocabulary] = useState<VocabularyUnits>(
@@ -61,7 +63,7 @@ const EverydayRepetition = () => {
               )
             : [];
 
-        navigate('/everydayRepetition/session', {
+        navigate(CHILD_ROUTE.SESSION, {
             state: {
                 sessionTask,
                 leftToRepeatAfterFinishing: leftToRepeat,
@@ -80,23 +82,6 @@ const EverydayRepetition = () => {
 
     return (
         <div>
-            <StatusTable>
-                <tbody>
-                    <tr>
-                        <StatusHeading>Update date:</StatusHeading>
-                        <td>{localStorageData.updateDate}</td>
-                    </tr>
-                    <tr>
-                        <StatusHeading>Full length:</StatusHeading>
-                        <td>{vocabulary.length}</td>
-                    </tr>
-                    <tr>
-                        <StatusHeading>Left to repeat:</StatusHeading>
-                        <td>{localStorageData.leftToRepeat.length}</td>
-                    </tr>
-                </tbody>
-            </StatusTable>
-
             <div>
                 <button onClick={loadLatestVocabulary}>
                     Load latest vocabulary
@@ -115,17 +100,57 @@ const EverydayRepetition = () => {
                     onChange={(e) => setRepetitionChunkSize(+e.target.value)}
                 />
             </div>
+            <StatusTable>
+                <tbody>
+                    <tr>
+                        <StatusHeading>Update date:</StatusHeading>
+                        <td>{localStorageData.updateDate}</td>
+                    </tr>
+                    <tr>
+                        <StatusHeading>Full length:</StatusHeading>
+                        <td>{vocabulary.length}</td>
+                    </tr>
+                    <tr>
+                        <StatusHeading>Left to repeat:</StatusHeading>
+                        <td>{localStorageData.leftToRepeat.length}</td>
+                    </tr>
+                </tbody>
+            </StatusTable>
+            {localStorageData.sessionHistory && (
+                <StatusTable>
+                    <tbody>
+                        {localStorageData.sessionHistory.map(
+                            (sessionData: SessionData) => (
+                                <Fragment key={sessionData.date}>
+                                    <tr>
+                                        <td>{sessionData.type}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            D:{' '}
+                                            {new Date(
+                                                sessionData.date
+                                            ).toLocaleString()}
+                                        </td>
+                                        <td>T: {sessionData.duration}</td>
+                                        <td>Q: {sessionData.quantity}</td>
+                                    </tr>
+                                </Fragment>
+                            )
+                        )}
+                    </tbody>
+                </StatusTable>
+            )}
         </div>
     );
 };
 
 const StatusTable = styled.table`
     border: 1px solid black;
+    width: 100%;
 `;
 
 const StatusHeading = styled.th`
     padding-right: 20px;
     text-align: left;
 `;
-
-export default EverydayRepetition;

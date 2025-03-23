@@ -18,8 +18,7 @@ const TaskHelp: FC<Props> = ({ hint, onSecondClick }) => {
     };
 
     useSideActions({
-        rightTapHandler: onClickHandler,
-        rightArrowDownHandler: onClickHandler,
+        rightSideActionHandler: onClickHandler,
     });
 
     useEffect(() => {
@@ -27,7 +26,7 @@ const TaskHelp: FC<Props> = ({ hint, onSecondClick }) => {
     }, [hint]);
 
     return (
-        <StyledButton onClick={onClickHandler} $isVisible={showHelp}>
+        <StyledButton $isVisible={showHelp}>
             {showHelp ? hint : 'Help'}
         </StyledButton>
     );

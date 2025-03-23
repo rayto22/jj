@@ -15,7 +15,9 @@ export const CachedWordsContext = createContext({
     },
 });
 
-export const CachedWordsContextWrap: FC<PropsWithChildren> = ({ children }) => {
+export const CachedWordsContextProvider: FC<PropsWithChildren> = ({
+    children,
+}) => {
     const [lastChangedLSRecord, setLastChangedLSRecord] = useState<{
         lsKey: LS_RECORD;
         originID: number;

@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+
+import { CHILD_ROUTE } from '../../interfaces/types';
 import {
     getLocalStorageData,
     setLocalStorageData,
@@ -7,7 +9,7 @@ import {
 import { useForceUpdate } from 'hooks/useForceUpdate';
 import styled from 'styled-components';
 
-const CherryPickRepetition = () => {
+export const CherryPickRepetitionMain = () => {
     const navigate = useNavigate();
     const forceUpdate = useForceUpdate();
 
@@ -16,7 +18,7 @@ const CherryPickRepetition = () => {
     const superCherryPickedWords =
         getLocalStorageData(LS_RECORD.SUPER_CHERRY_PICKED_WORDS) || [];
     const startRepetition = ({ isSuper }: { isSuper?: boolean } = {}) => {
-        navigate('/cherryPickRepetition/start', {
+        navigate(CHILD_ROUTE.SESSION, {
             state: {
                 customVocabularyCache: isSuper
                     ? superCherryPickedWords
@@ -77,5 +79,3 @@ const CherryPickRepetition = () => {
 const Button = styled.button`
     margin-bottom: 20px;
 `;
-
-export default CherryPickRepetition;

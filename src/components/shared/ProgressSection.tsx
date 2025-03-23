@@ -1,6 +1,7 @@
-import { FC, useEffect, useState, useMemo } from 'react';
-import { convertSecToMinSec } from 'utils/utils';
+import { FC, useEffect, useState, useContext } from 'react';
 import { styled } from 'styled-components';
+import { convertSecToMinSec } from 'utils/utils';
+import { SessionContext } from 'context/SessionContext';
 
 interface Props {
     taskLength: number;
@@ -9,7 +10,17 @@ interface Props {
 
 const ProgressSection: FC<Props> = ({ taskLength, taskIndex }) => {
     const [timeSpentSec, setTimeSpentSec] = useState<number>(0);
+    const { updateSessionData } = useContext(SessionContext);
     const tasksFinished = taskLength === taskIndex;
+    const formattedTime = convertSecToMinSec(timeSpentSec);
+
+    const onSessionEnd = () => {
+        updateSessionData({
+            duration: formattedTime,
+            date: new Date().getTime(),
+            quantity: taskIndex,
+        });
+    };
 
     useEffect(() => {
         let spentIntervalID: number;
@@ -19,6 +30,8 @@ const ProgressSection: FC<Props> = ({ taskLength, taskIndex }) => {
                 setTimeSpentSec((state) => state + 1);
             }, 1000);
             setTimeSpentSec(0);
+        } else if (tasksFinished) {
+            onSessionEnd();
         }
 
         return () => {
@@ -31,7 +44,7 @@ const ProgressSection: FC<Props> = ({ taskLength, taskIndex }) => {
             <div>
                 {taskIndex}/{taskLength}
             </div>
-            <div>{convertSecToMinSec(timeSpentSec)}</div>
+            <div>{formattedTime}</div>
         </Wrap>
     );
 };

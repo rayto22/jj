@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useState } from 'react';
+import { FC, MouseEvent, PropsWithChildren, useState } from 'react';
 import { styled } from 'styled-components';
 
 interface Props extends PropsWithChildren {
@@ -7,7 +7,10 @@ interface Props extends PropsWithChildren {
 
 const Sidebar: FC<Props> = ({ sidebarIndex = 0, children }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const toggleIsOpen = () => setIsOpen((state) => !state);
+    const toggleIsOpen = (e: MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        setIsOpen((state) => !state);
+    };
 
     return (
         <SidebarWrapper $isOpen={isOpen}>

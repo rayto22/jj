@@ -2,10 +2,8 @@ import { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 
 interface Props {
-    leftTapHandler?: () => void;
-    rightTapHandler?: () => void;
-    leftArrowDownHandler?: () => void;
-    rightArrowDownHandler?: () => void;
+    leftSideActionHandler?: () => void;
+    rightSideActionHandler?: () => void;
 }
 
 interface EventListenerData {
@@ -14,7 +12,10 @@ interface EventListenerData {
     handler: (e: Event) => void;
 }
 
-const useSideActions = (props: Props) => {
+const useSideActions = ({
+    leftSideActionHandler,
+    rightSideActionHandler,
+}: Props) => {
     useEffect(() => {
         const body = document.querySelector('body');
         const eventListenerData: EventListenerData = isMobile
@@ -27,9 +28,9 @@ const useSideActions = (props: Props) => {
                       const mouseXPos = (e as MouseEvent).offsetX;
 
                       if (mouseXPos <= halfDivWidth) {
-                          props.leftTapHandler && props.leftTapHandler();
+                          leftSideActionHandler?.();
                       } else {
-                          props.rightTapHandler && props.rightTapHandler();
+                          rightSideActionHandler?.();
                       }
                   },
               }
@@ -38,27 +39,29 @@ const useSideActions = (props: Props) => {
                   event: 'keydown',
                   handler: (e: Event) => {
                       if ((e as KeyboardEvent).code === 'ArrowLeft') {
-                          props.leftArrowDownHandler &&
-                              props.leftArrowDownHandler();
+                          leftSideActionHandler?.();
                       } else if ((e as KeyboardEvent).code === 'ArrowRight') {
-                          props.rightArrowDownHandler &&
-                              props.rightArrowDownHandler();
+                          rightSideActionHandler?.();
                       }
                   },
               };
 
-        eventListenerData.target.addEventListener(
-            eventListenerData.event,
-            eventListenerData.handler
-        );
+        const timeoutId = setTimeout(() => {
+            eventListenerData.target.addEventListener(
+                eventListenerData.event,
+                eventListenerData.handler
+            );
+        }, 100);
 
         return () => {
+            clearTimeout(timeoutId);
+
             eventListenerData.target.removeEventListener(
                 eventListenerData.event,
                 eventListenerData.handler
             );
         };
-    }, [props]);
+    }, [leftSideActionHandler, rightSideActionHandler]);
 };
 
 export default useSideActions;

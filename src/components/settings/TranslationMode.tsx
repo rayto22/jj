@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { styled } from 'styled-components';
 import {
     getLocalStorageData,
     setLocalStorageData,
@@ -16,8 +15,6 @@ const TranslationMode: FC = () => {
             return !state;
         });
     };
-
-    console.log(isJpToEn);
 
     return (
         <div>
