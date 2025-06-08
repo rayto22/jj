@@ -1,21 +1,10 @@
-export enum LS_RECORD {
-    MAIN_VOCABULARY = 'vocabulary',
-    MAIN_VOCABULARY_UPDATE_DATE = 'vocabularyUpdateDate',
-    MAIN_VOCABULARY_LEFT_TO_REPEAT = 'vocabularyLeftToRepeat',
-    CHERRY_PICKED_WORDS = 'cherryPickedWords',
-    SUPER_CHERRY_PICKED_WORDS = 'superCherryPickedWords',
-    REPORTED_WORDS = 'reportedWords',
-    TRANSLATION_MODE_J_TO_E = 'translationModeJpToEn',
-    VOCABULARY_DISPLAY_SETTING = 'vocabularyDisplaySetting',
-    REVERTED_VOCABULARY_ORDER = 'revertedVocabularyOrder',
-    SESSION_HISTORY = 'sessionHistory',
-}
+import { STORAGE_KEY } from '@/interfaces/types';
 
 const isComplexData = (data: string) => data[0] === '[' || data[0] === '{';
 const isBooleanData = (data: string) =>
     ['true', 'false'].some((boolValue) => data === boolValue);
 
-export const getLocalStorageData = (key: string) => {
+export const getLocalStorageData = (key: STORAGE_KEY) => {
     const data: string = localStorage.getItem(key);
 
     if (!data) return null;
@@ -23,7 +12,7 @@ export const getLocalStorageData = (key: string) => {
     return isComplexData(data) || isBooleanData(data) ? JSON.parse(data) : data;
 };
 
-export const setLocalStorageData = (key: string, value: unknown) => {
+export const setLocalStorageData = (key: STORAGE_KEY, value: unknown) => {
     const isString = typeof value === 'string';
 
     localStorage.setItem(key, isString ? value : JSON.stringify(value));

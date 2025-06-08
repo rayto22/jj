@@ -1,9 +1,8 @@
-import { FC, useLayoutEffect, useState } from 'react';
-import {
-    getLocalStorageData,
-    LS_RECORD,
-    setLocalStorageData,
-} from 'utils/localStorageUtils';
+import { FC, useState } from 'react';
+// import {
+//     loadData,
+//     saveData,
+// } from '@/utils/dataManager';
 
 interface Props {
     revert: () => void;
@@ -11,11 +10,11 @@ interface Props {
 
 export const ReorderButton: FC<Props> = ({ revert }) => {
     const [isReverted, setIsReverted] = useState<boolean>(
-        // () => getLocalStorageData(LS_RECORD.REVERTED_VOCABULARY_ORDER) || false
+        // () => loadData(STORAGE_KEY.REVERTED_VOCABULARY_ORDER) || false
         false
     );
     const onOrderButtonClick = () => {
-        // setLocalStorageData(LS_RECORD.REVERTED_VOCABULARY_ORDER, !isReverted);
+        // saveData(STORAGE_KEY.REVERTED_VOCABULARY_ORDER, !isReverted);
         revert();
         setIsReverted((state) => !state);
     };

@@ -1,18 +1,14 @@
 import { FC, useState } from 'react';
-import { styled } from 'styled-components';
-import {
-    getLocalStorageData,
-    setLocalStorageData,
-    LS_RECORD,
-} from 'utils/localStorageUtils';
+import { loadData, saveData } from '@/utils/dataManager';
+import { STORAGE_KEY } from '@/interfaces/types';
 
 const VocabularyDisplaySetting: FC = () => {
     const [showVocabulary, setShowVocabulary] = useState<boolean>(
-        () => getLocalStorageData(LS_RECORD.VOCABULARY_DISPLAY_SETTING) ?? false
+        () => loadData(STORAGE_KEY.VOCABULARY_DISPLAY_SETTING) ?? false
     );
     const onModeChange = () => {
         setShowVocabulary((state) => {
-            setLocalStorageData(LS_RECORD.VOCABULARY_DISPLAY_SETTING, !state);
+            saveData(STORAGE_KEY.VOCABULARY_DISPLAY_SETTING, !state);
             return !state;
         });
     };

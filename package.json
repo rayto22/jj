@@ -18,10 +18,18 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "startOld": "react-scripts start",
+    "buildOld": "react-scripts build",
+    "testOld": "react-scripts test",
+    "eject": "react-scripts eject",
+    "eslint": "npx eslint src/",
+    "eslint:fix": "npx eslint src/ --fix",
+
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx && tsc --noEmit"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^7.1.0",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",

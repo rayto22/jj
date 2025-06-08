@@ -1,17 +1,14 @@
 import { FC, useState } from 'react';
-import {
-    getLocalStorageData,
-    setLocalStorageData,
-    LS_RECORD,
-} from 'utils/localStorageUtils';
+import { loadData, saveData } from '@/utils/dataManager';
+import { STORAGE_KEY } from '@/interfaces/types';
 
 const TranslationMode: FC = () => {
     const [isJpToEn, setIsJpToEn] = useState<boolean>(
-        () => getLocalStorageData(LS_RECORD.TRANSLATION_MODE_J_TO_E) ?? true
+        () => loadData(STORAGE_KEY.TRANSLATION_MODE_J_TO_E) ?? true
     );
     const onModeChange = () => {
         setIsJpToEn((state) => {
-            setLocalStorageData(LS_RECORD.TRANSLATION_MODE_J_TO_E, !state);
+            saveData(STORAGE_KEY.TRANSLATION_MODE_J_TO_E, !state);
             return !state;
         });
     };

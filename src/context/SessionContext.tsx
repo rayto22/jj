@@ -14,12 +14,9 @@ import {
     SessionData,
     SessionHistory,
     PartialSessionData,
+    STORAGE_KEY,
 } from '../interfaces/types';
-import {
-    LS_RECORD,
-    getLocalStorageData,
-    setLocalStorageData,
-} from 'utils/localStorageUtils';
+import { loadData, saveData } from '@/utils/dataManager';
 
 const emptySessionData: PartialSessionData = {
     type: null,
@@ -54,9 +51,9 @@ export const SessionContextProvider: FC<Props> = ({
 
     const saveSessionRecord = (sessionData: SessionData) => {
         const savedSessionRecords: SessionHistory =
-            getLocalStorageData(LS_RECORD.SESSION_HISTORY) ?? [];
+            loadData(STORAGE_KEY.SESSION_HISTORY) ?? [];
 
-        setLocalStorageData(LS_RECORD.SESSION_HISTORY, [
+        saveData(STORAGE_KEY.SESSION_HISTORY, [
             sessionData,
             ...savedSessionRecords,
         ]);

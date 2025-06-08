@@ -1,5 +1,5 @@
+import { STORAGE_KEY } from '@/interfaces/types';
 import { FC, PropsWithChildren, createContext, useState, useMemo } from 'react';
-import { LS_RECORD } from 'utils/localStorageUtils';
 
 export const CachedWordsContext = createContext({
     lastChangedLSRecordKey: null,
@@ -8,7 +8,7 @@ export const CachedWordsContext = createContext({
         lsKey,
         originID,
     }: {
-        lsKey: LS_RECORD;
+        lsKey: STORAGE_KEY;
         originID: number;
     }) => {
         console.log('plug! Key: ' + lsKey + '; originID: ' + originID);
@@ -19,7 +19,7 @@ export const CachedWordsContextProvider: FC<PropsWithChildren> = ({
     children,
 }) => {
     const [lastChangedLSRecord, setLastChangedLSRecord] = useState<{
-        lsKey: LS_RECORD;
+        lsKey: STORAGE_KEY;
         originID: number;
     }>({ lsKey: null, originID: null });
 
@@ -31,7 +31,7 @@ export const CachedWordsContextProvider: FC<PropsWithChildren> = ({
                 lsKey,
                 originID,
             }: {
-                lsKey: LS_RECORD;
+                lsKey: STORAGE_KEY;
                 originID: number;
             }) => {
                 setLastChangedLSRecord({ lsKey, originID });

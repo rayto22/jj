@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { VocabularyUnit } from 'interfaces/types';
-import { getLocalStorageData, LS_RECORD } from 'utils/localStorageUtils';
+import { STORAGE_KEY, VocabularyUnit } from '@/interfaces/types';
+import { loadData } from '@/utils/dataManager';
 import TaskOutput from '../shared/TaskOutput';
 import TaskRomaji from '../shared/TaskRomaji';
 import TaskHelp from '../shared/TasxHelp';
@@ -12,8 +12,7 @@ interface Props {
 }
 
 const RepetitionTaskBlock: FC<Props> = ({ task, goToNextTask }) => {
-    const isModeJpToEng =
-        getLocalStorageData(LS_RECORD.TRANSLATION_MODE_J_TO_E) ?? true;
+    const isModeJpToEng = loadData(STORAGE_KEY.TRANSLATION_MODE_J_TO_E) ?? true;
     const { question, answer } = isModeJpToEng
         ? { question: task.kanamoji, answer: task.eng }
         : { question: task.eng, answer: task.kanamoji };

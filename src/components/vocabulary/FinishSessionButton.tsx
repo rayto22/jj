@@ -1,7 +1,12 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { VocabularyUnits, SESSION_TYPE, PARENT_ROUTE } from 'interfaces/types';
-import { LS_RECORD, setLocalStorageData } from 'utils/localStorageUtils';
+import {
+    VocabularyUnits,
+    SESSION_TYPE,
+    PARENT_ROUTE,
+    STORAGE_KEY,
+} from '@/interfaces/types';
+import { saveData } from '@/utils/dataManager';
 
 interface Props {
     sessionType: SESSION_TYPE;
@@ -16,8 +21,8 @@ export const FinishSessionButton: FC<Props> = ({
 
     const onTaskEnd = () => {
         if (sessionType === SESSION_TYPE.EVERYDAY_REPETITION) {
-            setLocalStorageData(
-                LS_RECORD.MAIN_VOCABULARY_LEFT_TO_REPEAT,
+            saveData(
+                STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT,
                 leftToRepeatAfterFinishing
             );
             navigate(PARENT_ROUTE.EVERYDAY_REPETITION);

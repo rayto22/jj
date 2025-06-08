@@ -1,22 +1,21 @@
 import { FC } from 'react';
-import { VocabularyUnits } from '@/interfaces/types';
+import { STORAGE_KEY, VocabularyUnits } from '@/interfaces/types';
 import SelectableList from './SelectableList';
 import Sidebar from './Sidebar';
-import { LS_RECORD } from 'utils/localStorageUtils';
-import { useCherryPickedWords } from 'hooks/useCherryPickedWords';
-import { useReportedWords } from 'hooks/useReportedWords';
+import { useCherryPickedWords } from '@/hooks/useCherryPickedWords';
+import { useReportedWords } from '@/hooks/useReportedWords';
 
 interface Props {
     fullSessionVocabulary: VocabularyUnits;
     currentTaskIndex?: number;
-    cherryPickStorageKey?: LS_RECORD;
+    cherryPickStorageKey?: STORAGE_KEY;
     sidebarIndex?: number;
 }
 
 const CherryPickWordList: FC<Props> = ({
     fullSessionVocabulary,
     currentTaskIndex,
-    cherryPickStorageKey = LS_RECORD.CHERRY_PICKED_WORDS,
+    cherryPickStorageKey = STORAGE_KEY.CHERRY_PICKED_WORDS,
     sidebarIndex = 0,
 }) => {
     const { isWordCherryPicked, cherryPickWord } = useCherryPickedWords({

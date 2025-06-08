@@ -1,15 +1,11 @@
-import { FC, useState } from 'react';
-import { VocabularyUnits } from 'interfaces/types';
-import {
-    getLocalStorageData,
-    setLocalStorageData,
-    LS_RECORD,
-} from 'utils/localStorageUtils';
+import { FC } from 'react';
+import { STORAGE_KEY, VocabularyUnits } from '@/interfaces/types';
+import { loadData } from '@/utils/dataManager';
 import CherryPickWordList from '../sidebar/CherryPickWordList';
 
 interface Props {
     fullSessionVocabulary: VocabularyUnits;
-    cherryPickStorageKey?: LS_RECORD;
+    cherryPickStorageKey?: STORAGE_KEY;
 }
 
 export const VocabularyOverview: FC<Props> = ({
@@ -17,7 +13,7 @@ export const VocabularyOverview: FC<Props> = ({
     cherryPickStorageKey,
 }) => {
     const isSettingoOn =
-        getLocalStorageData(LS_RECORD.VOCABULARY_DISPLAY_SETTING) ?? false;
+        loadData(STORAGE_KEY.VOCABULARY_DISPLAY_SETTING) ?? false;
 
     return (
         isSettingoOn && (

@@ -1,7 +1,7 @@
 import { FC, useEffect, useState, useContext } from 'react';
 import { styled } from 'styled-components';
-import { convertSecToMinSec } from 'utils/utils';
-import { SessionContext } from 'context/SessionContext';
+import { convertSecToMinSec } from '@/utils/utils';
+import { SessionContext } from '@/context/SessionContext';
 
 interface Props {
     taskLength: number;

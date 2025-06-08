@@ -1,29 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 
-import { CHILD_ROUTE } from '../../interfaces/types';
-import {
-    getLocalStorageData,
-    setLocalStorageData,
-    LS_RECORD,
-} from 'utils/localStorageUtils';
-import { useForceUpdate } from 'hooks/useForceUpdate';
+import { CHILD_ROUTE, STORAGE_KEY } from '../../interfaces/types';
+import { loadData, saveData } from '@/utils/dataManager';
+import { useForceUpdate } from '@/hooks/useForceUpdate';
 import styled from 'styled-components';
 
 export const CherryPickRepetitionMain = () => {
     const navigate = useNavigate();
     const forceUpdate = useForceUpdate();
 
-    const cherryPickedWords =
-        getLocalStorageData(LS_RECORD.CHERRY_PICKED_WORDS) || [];
+    const cherryPickedWords = loadData(STORAGE_KEY.CHERRY_PICKED_WORDS) || [];
     const superCherryPickedWords =
-        getLocalStorageData(LS_RECORD.SUPER_CHERRY_PICKED_WORDS) || [];
+        loadData(STORAGE_KEY.SUPER_CHERRY_PICKED_WORDS) || [];
     const startRepetition = ({ isSuper }: { isSuper?: boolean } = {}) => {
         navigate(CHILD_ROUTE.SESSION, {
             state: {
                 customVocabularyCache: isSuper
                     ? superCherryPickedWords
                     : cherryPickedWords,
-                cherryPickStorageKey: LS_RECORD.SUPER_CHERRY_PICKED_WORDS,
+                cherryPickStorageKey: STORAGE_KEY.SUPER_CHERRY_PICKED_WORDS,
             },
         });
     };
@@ -31,11 +26,8 @@ export const CherryPickRepetitionMain = () => {
         const result = confirm('Load super cherry pick base?');
 
         if (result) {
-            setLocalStorageData(
-                LS_RECORD.CHERRY_PICKED_WORDS,
-                superCherryPickedWords
-            );
-            setLocalStorageData(LS_RECORD.SUPER_CHERRY_PICKED_WORDS, []);
+            saveData(STORAGE_KEY.CHERRY_PICKED_WORDS, superCherryPickedWords);
+            saveData(STORAGE_KEY.SUPER_CHERRY_PICKED_WORDS, []);
             forceUpdate();
         }
     };
@@ -43,7 +35,7 @@ export const CherryPickRepetitionMain = () => {
         const result = confirm('Clear cherry pick?');
 
         if (result) {
-            setLocalStorageData(LS_RECORD.CHERRY_PICKED_WORDS, []);
+            saveData(STORAGE_KEY.CHERRY_PICKED_WORDS, []);
             forceUpdate();
         }
     };

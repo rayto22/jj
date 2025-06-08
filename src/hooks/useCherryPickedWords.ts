@@ -1,10 +1,10 @@
-import { LS_RECORD } from 'utils/localStorageUtils';
+import { STORAGE_KEY } from '@/interfaces/types';
 import { useCachedWords } from './useCachedWords';
 
 export const useCherryPickedWords = ({
-    lsKey = LS_RECORD.CHERRY_PICKED_WORDS,
+    lsKey = STORAGE_KEY.CHERRY_PICKED_WORDS,
 }: {
-    lsKey?: LS_RECORD;
+    lsKey?: STORAGE_KEY;
 } = {}) => {
     const { cachedWords, isWordCached, cacheWord } = useCachedWords({ lsKey });
 

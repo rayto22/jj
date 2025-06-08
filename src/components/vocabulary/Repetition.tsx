@@ -5,18 +5,18 @@ import {
     VocabularyUnit,
     VocabularyUnits,
     SESSION_TYPE,
-} from 'interfaces/types';
+} from '@/interfaces/types';
 
-import ProgressSection from 'components/shared/ProgressSection';
+import ProgressSection from '@/components/shared/ProgressSection';
 import Tomes from './Tomes';
-import RepeatExerciseButton from 'components/shared/RepeatExerciseButton';
-import { shuffle } from 'utils/utils';
+import RepeatExerciseButton from '@/components/shared/RepeatExerciseButton';
+import { shuffle } from '@/utils/utils';
 
-import { CachedWordsContextProvider } from 'context/CachedWordsContext';
-import { SessionContextProvider } from 'context/SessionContext';
-import { getVocabulary } from 'utils/sheetManager';
-import CherryPickWordList from 'components/sidebar/CherryPickWordList';
-import Settings from 'components/settings/Settings';
+import { CachedWordsContextProvider } from '@/context/CachedWordsContext';
+import { SessionContextProvider } from '@/context/SessionContext';
+import { getVocabulary } from '@/utils/sheetManager';
+import CherryPickWordList from '@/components/sidebar/CherryPickWordList';
+import Settings from '@/components/settings/Settings';
 import { FinishSessionButton } from './FinishSessionButton';
 import RepetitionTaskBlock from './RepetitionTaskBlock';
 import { VocabularyOverview } from './VocabularyOverview';

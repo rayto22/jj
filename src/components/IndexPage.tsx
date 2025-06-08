@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import { PARENT_ROUTE } from '../interfaces/types';
-import { getLocalStorageData, LS_RECORD } from 'utils/localStorageUtils';
+import { PARENT_ROUTE, STORAGE_KEY } from '../interfaces/types';
+import { loadData } from '@/utils/dataManager';
 
 export default function IndexPage() {
-    const hasReportedWords = getLocalStorageData(
-        LS_RECORD.REPORTED_WORDS
-    )?.length;
+    const hasReportedWords = loadData(STORAGE_KEY.REPORTED_WORDS)?.length;
 
     return (
         <div>

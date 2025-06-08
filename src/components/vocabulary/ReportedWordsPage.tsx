@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { VocabularyUnit } from 'interfaces/types';
-import { useReportedWords } from 'hooks/useReportedWords';
+import { VocabularyUnit } from '@/interfaces/types';
+import { useReportedWords } from '@/hooks/useReportedWords';
 import SelectableList from '../sidebar/SelectableList';
 
 export const ReportedWordsPage: FC = () => {

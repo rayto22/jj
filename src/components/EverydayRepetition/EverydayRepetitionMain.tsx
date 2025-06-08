@@ -2,14 +2,15 @@ import { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { VocabularyUnits, CHILD_ROUTE, SessionData } from 'interfaces/types';
-import { getVocabulary } from 'utils/sheetManager';
 import {
-    getLocalStorageData,
-    setLocalStorageData,
-    LS_RECORD,
-} from 'utils/localStorageUtils';
-import { shuffle } from 'utils/utils';
+    VocabularyUnits,
+    CHILD_ROUTE,
+    SessionData,
+    STORAGE_KEY,
+} from '@/interfaces/types';
+import { getVocabulary } from '@/utils/sheetManager';
+import { loadData, saveData } from '@/utils/dataManager';
+import { shuffle } from '@/utils/utils';
 
 import { Select } from '../shared/Select';
 
@@ -18,12 +19,12 @@ export const EverydayRepetitionMain = () => {
 
     const localStorageData = {
         updateDate:
-            getLocalStorageData(LS_RECORD.MAIN_VOCABULARY_UPDATE_DATE) ??
+            loadData(STORAGE_KEY.MAIN_VOCABULARY_UPDATE_DATE) ??
             'not loaded yet',
-        vocabulary: getLocalStorageData(LS_RECORD.MAIN_VOCABULARY) ?? [],
+        vocabulary: loadData(STORAGE_KEY.MAIN_VOCABULARY) ?? [],
         leftToRepeat:
-            getLocalStorageData(LS_RECORD.MAIN_VOCABULARY_LEFT_TO_REPEAT) ?? [],
-        sessionHistory: getLocalStorageData(LS_RECORD.SESSION_HISTORY) ?? [],
+            loadData(STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT) ?? [],
+        sessionHistory: loadData(STORAGE_KEY.SESSION_HISTORY) ?? [],
     };
 
     const [vocabulary, setVocabulary] = useState<VocabularyUnits>(
@@ -37,13 +38,10 @@ export const EverydayRepetitionMain = () => {
         getVocabulary().then((payloadUnshaffled: VocabularyUnits) => {
             const payload = shuffle(payloadUnshaffled);
 
-            setLocalStorageData(LS_RECORD.MAIN_VOCABULARY, payload);
-            setLocalStorageData(
-                LS_RECORD.MAIN_VOCABULARY_LEFT_TO_REPEAT,
-                payload
-            );
-            setLocalStorageData(
-                LS_RECORD.MAIN_VOCABULARY_UPDATE_DATE,
+            saveData(STORAGE_KEY.MAIN_VOCABULARY, payload);
+            saveData(STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT, payload);
+            saveData(
+                STORAGE_KEY.MAIN_VOCABULARY_UPDATE_DATE,
                 new Date().toLocaleString()
             );
             localStorageData.vocabulary = payload;
@@ -74,9 +72,9 @@ export const EverydayRepetitionMain = () => {
     const clearAll = () => {
         if (!confirm('Clear all?')) return;
 
-        setLocalStorageData(LS_RECORD.MAIN_VOCABULARY, []);
-        setLocalStorageData(LS_RECORD.MAIN_VOCABULARY_LEFT_TO_REPEAT, []);
-        setLocalStorageData(LS_RECORD.MAIN_VOCABULARY_UPDATE_DATE, '');
+        saveData(STORAGE_KEY.MAIN_VOCABULARY, []);
+        saveData(STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT, []);
+        saveData(STORAGE_KEY.MAIN_VOCABULARY_UPDATE_DATE, '');
         setVocabulary([]);
     };
 

@@ -1,15 +1,15 @@
 import { useState, useContext, useEffect, useMemo } from 'react';
-import { VocabularyUnits, VocabularyUnit } from '@/interfaces/types';
 import {
-    getLocalStorageData,
-    setLocalStorageData,
-    LS_RECORD,
-} from 'utils/localStorageUtils';
-import { CachedWordsContext } from 'context/CachedWordsContext';
+    VocabularyUnits,
+    VocabularyUnit,
+    STORAGE_KEY,
+} from '@/interfaces/types';
+import { loadData, saveData } from '@/utils/dataManager';
+import { CachedWordsContext } from '@/context/CachedWordsContext';
 
-export const useCachedWords = ({ lsKey }: { lsKey: LS_RECORD }) => {
+export const useCachedWords = ({ lsKey }: { lsKey: STORAGE_KEY }) => {
     const [cachedWords, setCachedWords] = useState<VocabularyUnits>(
-        () => getLocalStorageData(lsKey) || []
+        () => loadData(lsKey) || []
     );
     const cachedWordsContextValue = useContext(CachedWordsContext);
     const originID = useMemo(() => Math.random(), []);
@@ -22,7 +22,7 @@ export const useCachedWords = ({ lsKey }: { lsKey: LS_RECORD }) => {
         );
     };
     const updateCache = (units: VocabularyUnits) => {
-        setLocalStorageData(lsKey, units);
+        saveData(lsKey, units);
         setCachedWords(units);
         cachedWordsContextValue.onLSRecordUpdate({ lsKey, originID });
     };
@@ -41,7 +41,7 @@ export const useCachedWords = ({ lsKey }: { lsKey: LS_RECORD }) => {
             lsKey === cachedWordsContextValue.lastChangedLSRecordKey &&
             originID !== cachedWordsContextValue.lastChangeOriginID
         ) {
-            setCachedWords(() => getLocalStorageData(lsKey));
+            setCachedWords(() => loadData(lsKey));
         }
     }, [cachedWordsContextValue]);
 
