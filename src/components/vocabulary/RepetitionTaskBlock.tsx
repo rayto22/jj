@@ -4,7 +4,7 @@ import { loadData } from '@/utils/dataManager';
 import TaskOutput from '../shared/TaskOutput';
 import TaskRomaji from '../shared/TaskRomaji';
 import TaskHelp from '../shared/TasxHelp';
-import { CenteredDiv } from './Repetition';
+import { styled } from 'styled-components';
 
 interface Props {
     task: VocabularyUnit;
@@ -27,5 +27,10 @@ const RepetitionTaskBlock: FC<Props> = ({ task, goToNextTask }) => {
         </>
     );
 };
+
+const CenteredDiv = styled.div`
+    margin: 5px auto;
+    width: fit-content;
+`;
 
 export default RepetitionTaskBlock;

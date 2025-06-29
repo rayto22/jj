@@ -1,7 +1,8 @@
 import { Routes, Route, HashRouter } from 'react-router-dom';
 
-import { PARENT_ROUTE, CHILD_ROUTE } from './interfaces/types';
+import { PARENT_ROUTE, CHILD_ROUTE } from '@/interfaces/types';
 
+import GoHomeButton from './components/settings/GoHomeButton';
 import IndexPage from './components/IndexPage';
 import TestForm from './components/TestForm';
 import VocabularyRepetition from './components/vocabulary/Repetition';
@@ -21,6 +22,7 @@ function App() {
     return (
         <HashRouter>
             <GlobalStyle />
+            <GoHomeButton />
             <Routes>
                 <Route path={PARENT_ROUTE.HOME} element={<IndexPage />} />
                 <Route path={PARENT_ROUTE.HIRAGANA} element={<TestForm />} />

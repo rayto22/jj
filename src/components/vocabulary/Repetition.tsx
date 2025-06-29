@@ -122,9 +122,4 @@ const Container = styled.div`
     width: fit-content;
 `;
 
-export const CenteredDiv = styled.div`
-    margin: 5px auto;
-    width: fit-content;
-`;
-
 export default Repetition;
