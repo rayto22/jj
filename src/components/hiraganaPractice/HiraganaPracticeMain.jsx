@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import { styled } from 'styled-components';
-import { mapA, mapI, mapU, mapE, mapO } from '../data/Hiragana';
-import { shuffle } from '../utils/utils';
+import { mapA, mapI, mapU, mapE, mapO } from '../../data/Hiragana';
+import { shuffle } from '../../utils/utils';
 
-const TestForm = () => {
+export const HiraganaPracticeMain = () => {
     const getPairs = (obj) => Object.keys(obj).map((key) => [key, obj[key]]);
 
     const { allMapArray } = useMemo(() => {
@@ -55,7 +55,7 @@ const TestForm = () => {
                     <AnswerInput
                         value={inputValue}
                         onInput={onAnswerInput}
-                        hasError={hasError}
+                        $hasError={hasError}
                     />
                 </>
             )}
@@ -68,7 +68,5 @@ const HiraganaChar = styled.div`
 `;
 
 const AnswerInput = styled.input`
-    ${(props) => props.hasError && 'color: red'}
+    ${(props) => props.$hasError && 'color: red'}
 `;
-
-export default TestForm;

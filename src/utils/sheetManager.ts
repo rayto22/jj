@@ -1,4 +1,4 @@
-import { VocabularyUnit, VocabularyUnits } from '../interfaces/types';
+import { LexUnit, LexUnits } from '../interfaces/types';
 
 interface GoogleSheetParams {
     id: string;
@@ -79,11 +79,11 @@ export const getGoogleSheetData = <T>({
         });
 };
 
-export const getVocabulary = (): Promise<VocabularyUnits> => {
-    const vocabularySheetParams: GoogleSheetParams = {
+export const loadLibrary = (): Promise<LexUnits> => {
+    const librarySheetParams: GoogleSheetParams = {
         id: '18nlWgs1VKr5tLjELq3rylVp53WZZLuElKDezNSptr3g',
         gid: '0',
     };
 
-    return getGoogleSheetData<VocabularyUnit>(vocabularySheetParams);
+    return getGoogleSheetData<LexUnit>(librarySheetParams);
 };

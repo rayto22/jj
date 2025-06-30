@@ -5,17 +5,17 @@ import { loadData, saveData } from '@/utils/dataManager';
 import { useForceUpdate } from '@/hooks/useForceUpdate';
 import styled from 'styled-components';
 
-export const CherryPickRepetitionMain = () => {
+export const CherryPickPracticeMain = () => {
     const navigate = useNavigate();
     const forceUpdate = useForceUpdate();
 
     const cherryPickedWords = loadData(STORAGE_KEY.CHERRY_PICKED_WORDS) || [];
     const superCherryPickedWords =
         loadData(STORAGE_KEY.SUPER_CHERRY_PICKED_WORDS) || [];
-    const startRepetition = ({ isSuper }: { isSuper?: boolean } = {}) => {
-        navigate(CHILD_ROUTE.SESSION, {
+    const startPractice = ({ isSuper }: { isSuper?: boolean } = {}) => {
+        navigate(CHILD_ROUTE.PRACTICE_SESSION, {
             state: {
-                customVocabularyCache: isSuper
+                customLibrary: isSuper
                     ? superCherryPickedWords
                     : cherryPickedWords,
                 cherryPickStorageKey: STORAGE_KEY.SUPER_CHERRY_PICKED_WORDS,
@@ -43,12 +43,12 @@ export const CherryPickRepetitionMain = () => {
     return (
         <>
             <div>
-                <Button onClick={() => startRepetition()}>
+                <Button onClick={() => startPractice()}>
                     Start Cherry Pick Repetion ({cherryPickedWords.length})
                 </Button>
             </div>
             <div>
-                <Button onClick={() => startRepetition({ isSuper: true })}>
+                <Button onClick={() => startPractice({ isSuper: true })}>
                     Start SUPER Cherry Pick Repetion (
                     {superCherryPickedWords.length})
                 </Button>

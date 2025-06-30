@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { VocabularyUnit } from '@/interfaces/types';
+import { LexUnit } from '@/interfaces/types';
 import { useReportedWords } from '@/hooks/useReportedWords';
 import SelectableList from '../sidebar/SelectableList';
 
 export const ReportedWordsPage: FC = () => {
     const { reportedWords, isWordReported, reportWord, resetReport } =
         useReportedWords();
-    const reportWordWithConfirmation = (item: VocabularyUnit) => {
+    const reportWordWithConfirmation = (item: LexUnit) => {
         if (confirm('Is this word fixed?')) reportWord(item);
     };
     const resetReportWithConfirmation = () => {

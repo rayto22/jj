@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { STORAGE_KEY, VocabularyUnits } from '@/interfaces/types';
+import { STORAGE_KEY, LexUnits } from '@/interfaces/types';
 import SelectableList from './SelectableList';
 import Sidebar from './Sidebar';
 import { useCherryPickedWords } from '@/hooks/useCherryPickedWords';
 import { useReportedWords } from '@/hooks/useReportedWords';
 
 interface Props {
-    fullSessionVocabulary: VocabularyUnits;
+    fullSessionVocabulary: LexUnits;
     currentTaskIndex?: number;
     cherryPickStorageKey?: STORAGE_KEY;
     sidebarIndex?: number;

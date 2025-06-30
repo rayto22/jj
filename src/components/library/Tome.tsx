@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { VocabularyUnits } from '../../interfaces/types';
+import { LexUnits } from '../../interfaces/types';
 import styled from 'styled-components';
 
 interface Props {
-    tome: VocabularyUnits;
+    tome: LexUnits;
     tomeIndex: number;
     tomeMaxSize: number;
     onTomeClick: () => void;

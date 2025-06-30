@@ -26,12 +26,12 @@ const emptySessionData: PartialSessionData = {
 };
 
 const sessionRoutesMap = {
-    [PARENT_ROUTE.VOCABULARY_REPETITION]: SESSION_TYPE.VOCABULARY_REPETITION,
-    [PARENT_ROUTE.EVERYDAY_REPETITION]: SESSION_TYPE.EVERYDAY_REPETITION,
-    [PARENT_ROUTE.CHERRY_PICK_REPETITION]: SESSION_TYPE.CHERRY_PICK_REPETITION,
+    [PARENT_ROUTE.REGULAR_PRACTICE]: SESSION_TYPE.REGULAR_PRACTICE,
+    [PARENT_ROUTE.EVERYDAY_PRACTICE]: SESSION_TYPE.EVERYDAY_PRACTICE,
+    [PARENT_ROUTE.CHERRY_PICK_PRACTICE]: SESSION_TYPE.CHERRY_PICK_PRACTICE,
 };
 
-export const SessionContext = createContext({
+export const PracticeSessionContext = createContext({
     ...emptySessionData,
     updateSessionData: (newData: PartialSessionData): void =>
         console.log('Plug. New data received ' + newData),
@@ -41,7 +41,7 @@ interface Props extends PropsWithChildren {
     isSessionInProgress: boolean;
 }
 
-export const SessionContextProvider: FC<Props> = ({
+export const PracticeSessionContextProvider: FC<Props> = ({
     isSessionInProgress,
     children,
 }) => {
@@ -90,8 +90,8 @@ export const SessionContextProvider: FC<Props> = ({
     }, [sessionData]);
 
     return (
-        <SessionContext.Provider value={memorizedValue}>
+        <PracticeSessionContext.Provider value={memorizedValue}>
             {children}
-        </SessionContext.Provider>
+        </PracticeSessionContext.Provider>
     );
 };

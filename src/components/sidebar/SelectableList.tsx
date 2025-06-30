@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { styled } from 'styled-components';
-import { VocabularyUnits, VocabularyUnit } from '@/interfaces/types';
+import { LexUnits, LexUnit } from '@/interfaces/types';
 
 interface Props {
-    list: VocabularyUnits;
-    isSelected: (item: VocabularyUnit) => boolean;
-    onSelect: (item: VocabularyUnit) => void;
-    isWordReported: (item: VocabularyUnit) => boolean;
-    onReport: (item: VocabularyUnit) => void;
+    list: LexUnits;
+    isSelected: (item: LexUnit) => boolean;
+    onSelect: (item: LexUnit) => void;
+    isWordReported: (item: LexUnit) => boolean;
+    onReport: (item: LexUnit) => void;
 }
 
 const SelectableList: FC<Props> = ({

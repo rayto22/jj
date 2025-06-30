@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-export const EverydayRepetitionLayout = () => {
+export const EmptyRouteLayout = () => {
     return (
         <div>
             <Outlet />

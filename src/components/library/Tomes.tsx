@@ -1,32 +1,31 @@
 import { FC, useState, useEffect } from 'react';
-import { VocabularyUnits } from '../../interfaces/types';
-import { shuffle } from '../../utils/utils';
+import { LexUnits } from '../../interfaces/types';
 import { Select } from '../shared/Select';
 import Tome from './Tome';
 
 interface Props {
-    setVocabulary: (vocabulary: VocabularyUnits) => void;
-    vocabularyCache: VocabularyUnits;
+    onTomeSelect: (tome: LexUnits) => void;
+    library: LexUnits;
 }
 
-const Tomes: FC<Props> = ({ setVocabulary, vocabularyCache }) => {
+const Tomes: FC<Props> = ({ onTomeSelect, library }) => {
     const [tomeSize, setTomeSize] = useState<number>(100);
     const createTomes = () => {
-        if (!vocabularyCache) return [];
+        if (!library) return [];
 
         const tomesCache = [];
 
-        for (let i = 0; i < vocabularyCache.length; i += tomeSize) {
-            tomesCache.push(vocabularyCache.slice(i, i + tomeSize));
+        for (let i = 0; i < library.length; i += tomeSize) {
+            tomesCache.push(library.slice(i, i + tomeSize));
         }
 
         return tomesCache;
     };
-    const [tomes, setToms] = useState<Array<VocabularyUnits>>(createTomes());
+    const [tomes, setToms] = useState<Array<LexUnits>>(createTomes());
 
     useEffect(() => {
         setToms(createTomes());
-    }, [vocabularyCache, tomeSize]);
+    }, [library, tomeSize]);
 
     return (
         <>
@@ -42,7 +41,7 @@ const Tomes: FC<Props> = ({ setVocabulary, vocabularyCache }) => {
                         tome={tome}
                         tomeIndex={index}
                         tomeMaxSize={tomeSize}
-                        onTomeClick={() => setVocabulary(shuffle(tome))}
+                        onTomeClick={() => onTomeSelect(tome)}
                     />
                 ))}
             </ul>

@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import { STORAGE_KEY, VocabularyUnits } from '@/interfaces/types';
+import { STORAGE_KEY, LexUnits } from '@/interfaces/types';
 import { loadData } from '@/utils/dataManager';
 import CherryPickWordList from '../sidebar/CherryPickWordList';
 
 interface Props {
-    fullSessionVocabulary: VocabularyUnits;
+    fullSessionVocabulary: LexUnits;
     cherryPickStorageKey?: STORAGE_KEY;
 }
 
-export const VocabularyOverview: FC<Props> = ({
+export const DeckOverview: FC<Props> = ({
     fullSessionVocabulary,
     cherryPickStorageKey,
 }) => {

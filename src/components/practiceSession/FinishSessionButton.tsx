@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-    VocabularyUnits,
+    LexUnits,
     SESSION_TYPE,
     PARENT_ROUTE,
     STORAGE_KEY,
@@ -10,24 +10,24 @@ import { saveData } from '@/utils/dataManager';
 
 interface Props {
     sessionType: SESSION_TYPE;
-    leftToRepeatAfterFinishing: VocabularyUnits;
+    leftToPracticeAfterFinishing: LexUnits;
 }
 
 export const FinishSessionButton: FC<Props> = ({
     sessionType,
-    leftToRepeatAfterFinishing,
+    leftToPracticeAfterFinishing,
 }) => {
     const navigate = useNavigate();
 
     const onTaskEnd = () => {
-        if (sessionType === SESSION_TYPE.EVERYDAY_REPETITION) {
+        if (sessionType === SESSION_TYPE.EVERYDAY_PRACTICE) {
             saveData(
                 STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT,
-                leftToRepeatAfterFinishing
+                leftToPracticeAfterFinishing
             );
-            navigate(PARENT_ROUTE.EVERYDAY_REPETITION);
-        } else if (sessionType === SESSION_TYPE.VOCABULARY_REPETITION) {
-            navigate(PARENT_ROUTE.VOCABULARY_REPETITION);
+            navigate(PARENT_ROUTE.EVERYDAY_PRACTICE);
+        } else if (sessionType === SESSION_TYPE.REGULAR_PRACTICE) {
+            navigate(PARENT_ROUTE.REGULAR_PRACTICE);
         }
     };
 

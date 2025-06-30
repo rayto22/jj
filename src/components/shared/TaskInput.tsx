@@ -32,15 +32,15 @@ const TaskInput: FC<Props> = ({ correctAnswer, onCorrectAnswer }) => {
     return (
         <StyledInput
             value={inputValue}
-            hasError={hasError}
+            $hasError={hasError}
             onChange={onAnswerInput}
         />
     );
 };
 
-const StyledInput = styled.input<{ hasError?: boolean }>`
+const StyledInput = styled.input<{ $hasError?: boolean }>`
     font-size: 24px;
-    ${(props) => props.hasError && 'color: red'}
+    ${(props) => props.$hasError && 'color: red'}
 `;
 
 export default TaskInput;

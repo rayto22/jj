@@ -1,20 +1,19 @@
 export enum PARENT_ROUTE {
     HOME = '/',
     HIRAGANA = '/hiragana',
-    VOCABULARY_REPETITION = '/vocabularyRepetition',
-    EVERYDAY_REPETITION = '/everydayRepetition',
-    CHERRY_PICK_REPETITION = '/cherryPickRepetition',
+    REGULAR_PRACTICE = '/regularPractice',
+    EVERYDAY_PRACTICE = '/everydayPractice',
+    CHERRY_PICK_PRACTICE = '/cherryPickPractice',
     REPORTED_WORDS = '/reportedWords',
 }
 
 export enum CHILD_ROUTE {
-    SESSION = 'session',
+    PRACTICE_SESSION = 'play',
 }
 
 export enum STORAGE_KEY {
     MAIN_VOCABULARY = 'vocabulary',
-    MAIN_VOCABULARY_UPDATE_DATE = 'vocabularyUpdateDate',
-    MAIN_VOCABULARY_LEFT_TO_REPEAT = 'vocabularyLeftToRepeat',
+    MAIN_VOCABULARY_LEFT_TO_REPEAT = 'vocabularyLeftToPractice',
     CHERRY_PICKED_WORDS = 'cherryPickedWords',
     SUPER_CHERRY_PICKED_WORDS = 'superCherryPickedWords',
     REPORTED_WORDS = 'reportedWords',
@@ -24,19 +23,19 @@ export enum STORAGE_KEY {
     SESSION_HISTORY = 'sessionHistory',
 }
 
-export interface VocabularyUnit {
+export interface LexUnit {
     kanamoji: string;
     romaji: string;
     eng: string;
     tags?: string | Array<string>;
 }
 
-export type VocabularyUnits = Array<VocabularyUnit>;
+export type LexUnits = Array<LexUnit>;
 
 export enum SESSION_TYPE {
-    VOCABULARY_REPETITION = 'Vocabulary rep',
-    EVERYDAY_REPETITION = 'Everyday rep',
-    CHERRY_PICK_REPETITION = 'Cherry pick rep',
+    REGULAR_PRACTICE = 'Regular practice',
+    EVERYDAY_PRACTICE = 'Everyday practice',
+    CHERRY_PICK_PRACTICE = 'Cherry pick practice',
     UNKNOWN = 'Unknown',
 }
 

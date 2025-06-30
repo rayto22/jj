@@ -14,18 +14,18 @@ export default function IndexPage() {
                     <Link to={PARENT_ROUTE.HIRAGANA}>Hiragana</Link>
                 </li>
                 <li>
-                    <Link to={PARENT_ROUTE.VOCABULARY_REPETITION}>
-                        Vocabulary Repetition
+                    <Link to={PARENT_ROUTE.REGULAR_PRACTICE}>
+                        Regular Practice
                     </Link>
                 </li>
                 <li>
-                    <Link to={PARENT_ROUTE.EVERYDAY_REPETITION}>
-                        Everyday Repetition
+                    <Link to={PARENT_ROUTE.EVERYDAY_PRACTICE}>
+                        Everyday Practice
                     </Link>
                 </li>
                 <li>
-                    <Link to={PARENT_ROUTE.CHERRY_PICK_REPETITION}>
-                        Cherry Pick Repetition
+                    <Link to={PARENT_ROUTE.CHERRY_PICK_PRACTICE}>
+                        Cherry Pick Practice
                     </Link>
                 </li>
                 {hasReportedWords ? (

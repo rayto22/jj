@@ -1,16 +1,16 @@
 import { FC, useEffect, useState, useContext } from 'react';
 import { styled } from 'styled-components';
 import { convertSecToMinSec } from '@/utils/utils';
-import { SessionContext } from '@/context/SessionContext';
+import { PracticeSessionContext } from '@/context/PracticeSessionContext';
 
 interface Props {
     taskLength: number;
     taskIndex: number;
 }
 
-const ProgressSection: FC<Props> = ({ taskLength, taskIndex }) => {
+export const SessionProgressBlock: FC<Props> = ({ taskLength, taskIndex }) => {
     const [timeSpentSec, setTimeSpentSec] = useState<number>(0);
-    const { updateSessionData } = useContext(SessionContext);
+    const { updateSessionData } = useContext(PracticeSessionContext);
     const tasksFinished = taskLength === taskIndex;
     const formattedTime = convertSecToMinSec(timeSpentSec);
 
@@ -52,5 +52,3 @@ const ProgressSection: FC<Props> = ({ taskLength, taskIndex }) => {
 const Wrap = styled.div`
     margin-left: 0.5rem;
 `;
-
-export default ProgressSection;

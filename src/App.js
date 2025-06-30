@@ -2,19 +2,14 @@ import { Routes, Route, HashRouter } from 'react-router-dom';
 
 import { PARENT_ROUTE, CHILD_ROUTE } from '@/interfaces/types';
 
+import { EmptyRouteLayout } from './components/shared/EmptyRouteLayout';
 import GoHomeButton from './components/settings/GoHomeButton';
 import IndexPage from './components/IndexPage';
-import TestForm from './components/TestForm';
-import VocabularyRepetition from './components/vocabulary/Repetition';
-import {
-    EverydayRepetitionLayout,
-    EverydayRepetitionMain,
-} from './components/EverydayRepetition';
-import {
-    CherryPickRepetitionLayout,
-    CherryPickRepetitionMain,
-} from './components/CherryPickRepetition';
-import { ReportedWordsPage } from './components/vocabulary/ReportedWordsPage';
+import { HiraganaPracticeMain } from './components/hiraganaPractice/HiraganaPracticeMain';
+import { Library } from './components/library/Library';
+import { EverydayPracticeMain } from './components/everydayPractice/EverydayPracticeMain';
+import { CherryPickPracticeMain } from './components/cherryPickPractice/CherryPickPracticeMain';
+import { ReportedWordsPage } from './components/library/ReportedWordsPage';
 
 import GlobalStyle from './styles/globalStyle';
 
@@ -25,31 +20,34 @@ function App() {
             <GoHomeButton />
             <Routes>
                 <Route path={PARENT_ROUTE.HOME} element={<IndexPage />} />
-                <Route path={PARENT_ROUTE.HIRAGANA} element={<TestForm />} />
                 <Route
-                    path={PARENT_ROUTE.VOCABULARY_REPETITION}
-                    element={<VocabularyRepetition />}
+                    path={PARENT_ROUTE.HIRAGANA}
+                    element={<HiraganaPracticeMain />}
                 />
+                <Route
+                    path={PARENT_ROUTE.REGULAR_PRACTICE}
+                    element={<Library />}
+                ></Route>
 
                 <Route
-                    path={PARENT_ROUTE.EVERYDAY_REPETITION}
-                    element={<EverydayRepetitionLayout />}
+                    path={PARENT_ROUTE.EVERYDAY_PRACTICE}
+                    element={<EmptyRouteLayout />}
                 >
-                    <Route index element={<EverydayRepetitionMain />} />
+                    <Route index element={<EverydayPracticeMain />} />
                     <Route
-                        path={CHILD_ROUTE.SESSION}
-                        element={<VocabularyRepetition />}
+                        path={CHILD_ROUTE.PRACTICE_SESSION}
+                        element={<Library />}
                     />
                 </Route>
 
                 <Route
-                    path={PARENT_ROUTE.CHERRY_PICK_REPETITION}
-                    element={<CherryPickRepetitionLayout />}
+                    path={PARENT_ROUTE.CHERRY_PICK_PRACTICE}
+                    element={<EmptyRouteLayout />}
                 >
-                    <Route index element={<CherryPickRepetitionMain />} />
+                    <Route index element={<CherryPickPracticeMain />} />
                     <Route
-                        path={CHILD_ROUTE.SESSION}
-                        element={<VocabularyRepetition />}
+                        path={CHILD_ROUTE.PRACTICE_SESSION}
+                        element={<Library />}
                     />
                 </Route>
 

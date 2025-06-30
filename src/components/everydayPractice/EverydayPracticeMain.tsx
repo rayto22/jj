@@ -3,68 +3,60 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
-    VocabularyUnits,
+    LexUnits,
     CHILD_ROUTE,
     SessionData,
     STORAGE_KEY,
 } from '@/interfaces/types';
-import { getVocabulary } from '@/utils/sheetManager';
+import { loadLibrary } from '@/utils/sheetManager';
 import { loadData, saveData } from '@/utils/dataManager';
 import { shuffle } from '@/utils/utils';
 
 import { Select } from '../shared/Select';
 
-export const EverydayRepetitionMain = () => {
+export const EverydayPracticeMain = () => {
     const navigate = useNavigate();
 
     const localStorageData = {
-        updateDate:
-            loadData(STORAGE_KEY.MAIN_VOCABULARY_UPDATE_DATE) ??
-            'not loaded yet',
-        vocabulary: loadData(STORAGE_KEY.MAIN_VOCABULARY) ?? [],
-        leftToRepeat:
+        library: loadData(STORAGE_KEY.MAIN_VOCABULARY) ?? [],
+        leftToPractice:
             loadData(STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT) ?? [],
         sessionHistory: loadData(STORAGE_KEY.SESSION_HISTORY) ?? [],
     };
 
-    const [vocabulary, setVocabulary] = useState<VocabularyUnits>(
-        localStorageData.vocabulary
-    );
-    const [repetitionChunkSize, setRepetitionChunkSize] = useState<number>(100);
+    const [library, setLibrary] = useState<LexUnits>(localStorageData.library);
+    const [practiceChunkSize, setPracticeChunkSize] = useState<number>(100);
 
-    const loadLatestVocabulary = () => {
+    const loadLatestLibrary = () => {
         if (!confirm('Load latest?')) return;
 
-        getVocabulary().then((payloadUnshaffled: VocabularyUnits) => {
+        loadLibrary().then((payloadUnshaffled: LexUnits) => {
             const payload = shuffle(payloadUnshaffled);
 
             saveData(STORAGE_KEY.MAIN_VOCABULARY, payload);
             saveData(STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT, payload);
-            saveData(
-                STORAGE_KEY.MAIN_VOCABULARY_UPDATE_DATE,
-                new Date().toLocaleString()
-            );
-            localStorageData.vocabulary = payload;
-            setVocabulary(payload);
+            setLibrary(payload);
         });
     };
 
     const startSession = () => {
-        const sessionTask = localStorageData.leftToRepeat.slice(
+        const sessionTask = localStorageData.leftToPractice.slice(
             0,
-            repetitionChunkSize
+            practiceChunkSize
         );
-        const leftToRepeat = localStorageData.leftToRepeat[repetitionChunkSize]
-            ? localStorageData.leftToRepeat.slice(
-                  repetitionChunkSize,
-                  localStorageData.leftToRepeat.length
+        const leftToPractice = localStorageData.leftToPractice[
+            practiceChunkSize
+        ]
+            ? localStorageData.leftToPractice.slice(
+                  practiceChunkSize,
+                  localStorageData.leftToPractice.length
               )
             : [];
 
-        navigate(CHILD_ROUTE.SESSION, {
+        navigate(CHILD_ROUTE.PRACTICE_SESSION, {
             state: {
                 sessionTask,
-                leftToRepeatAfterFinishing: leftToRepeat,
+                leftToPracticeAfterFinishing: leftToPractice,
             },
         });
     };
@@ -74,16 +66,13 @@ export const EverydayRepetitionMain = () => {
 
         saveData(STORAGE_KEY.MAIN_VOCABULARY, []);
         saveData(STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT, []);
-        saveData(STORAGE_KEY.MAIN_VOCABULARY_UPDATE_DATE, '');
-        setVocabulary([]);
+        setLibrary([]);
     };
 
     return (
         <div>
             <div>
-                <button onClick={loadLatestVocabulary}>
-                    Load latest vocabulary
-                </button>
+                <button onClick={loadLatestLibrary}>Load latest library</button>
             </div>
             <div>
                 <button onClick={startSession}>Start Session</button>
@@ -93,24 +82,20 @@ export const EverydayRepetitionMain = () => {
             </div>
             <div>
                 <Select
-                    value={repetitionChunkSize}
+                    value={practiceChunkSize}
                     optionsList={[100, 50, 25, 15, 5]}
-                    onChange={(e) => setRepetitionChunkSize(+e.target.value)}
+                    onChange={(e) => setPracticeChunkSize(+e.target.value)}
                 />
             </div>
             <StatusTable>
                 <tbody>
                     <tr>
-                        <StatusHeading>Update date:</StatusHeading>
-                        <td>{localStorageData.updateDate}</td>
+                        <StatusHeading># Total:</StatusHeading>
+                        <td>{library.length}</td>
                     </tr>
                     <tr>
-                        <StatusHeading>Full length:</StatusHeading>
-                        <td>{vocabulary.length}</td>
-                    </tr>
-                    <tr>
-                        <StatusHeading>Left to repeat:</StatusHeading>
-                        <td>{localStorageData.leftToRepeat.length}</td>
+                        <StatusHeading># Left:</StatusHeading>
+                        <td>{localStorageData.leftToPractice.length}</td>
                     </tr>
                 </tbody>
             </StatusTable>
