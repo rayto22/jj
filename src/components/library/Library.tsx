@@ -1,28 +1,24 @@
 import { useState, FC, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { LexUnits } from '@/interfaces/types';
-
-import Tomes from './Tomes';
-import { shuffle } from '@/utils/utils';
-
-import { CachedWordsContextProvider } from '@/context/CachedWordsContext';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { LexUnits, CHILD_ROUTE } from '@/interfaces/types';
 
 import { loadLibrary } from '@/utils/sheetManager';
+import { shuffle } from '@/utils/utils';
 
-import { PracticeSession } from '@/components/practiceSession/PracticeSession';
 import { ReorderButton } from './ReorderButton';
+import Tomes from './Tomes';
 
 export const Library: FC = () => {
+    const navigate = useNavigate();
     const { state: locationState } = useLocation();
+    const customLibrary = locationState?.customLibrary;
 
     const [library, setLibrary] = useState<LexUnits>();
-    const [deck, setDeck] = useState<LexUnits>(() => {
-        return locationState?.sessionTask && shuffle(locationState.sessionTask);
-    });
+    const [deck, setDeck] = useState<LexUnits>(null);
 
     useEffect(() => {
-        if (locationState?.customLibrary) {
-            setLibrary(locationState.customLibrary);
+        if (customLibrary) {
+            setLibrary(customLibrary);
         } else {
             loadLibrary().then((response: LexUnits) => {
                 setLibrary(response);
@@ -30,23 +26,23 @@ export const Library: FC = () => {
         }
     }, []);
 
+    useEffect(() => {
+        if (deck) {
+            navigate(CHILD_ROUTE.PRACTICE_SESSION, {
+                state: { deck },
+            });
+        }
+    }, [deck]);
+
     return (
-        <CachedWordsContextProvider>
-            {deck ? (
-                <PracticeSession deck={deck} />
-            ) : (
-                <>
-                    <ReorderButton
-                        revert={() =>
-                            setLibrary((state) => [...state.reverse()])
-                        }
-                    />
-                    <Tomes
-                        onTomeSelect={(tome) => setDeck(tome)}
-                        library={library}
-                    ></Tomes>
-                </>
-            )}
-        </CachedWordsContextProvider>
+        <>
+            <ReorderButton
+                revert={() => setLibrary((state) => [...state.reverse()])}
+            />
+            <Tomes
+                onTomeSelect={(tome) => setDeck(shuffle(tome))}
+                library={library}
+            ></Tomes>
+        </>
     );
 };

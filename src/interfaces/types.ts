@@ -4,23 +4,26 @@ export enum PARENT_ROUTE {
     REGULAR_PRACTICE = '/regularPractice',
     EVERYDAY_PRACTICE = '/everydayPractice',
     CHERRY_PICK_PRACTICE = '/cherryPickPractice',
-    REPORTED_WORDS = '/reportedWords',
+    LEX_2_FIX = '/lex2Fix',
 }
 
 export enum CHILD_ROUTE {
     PRACTICE_SESSION = 'play',
+    TOME_SELECTION = 'tome',
 }
 
 export enum STORAGE_KEY {
-    MAIN_VOCABULARY = 'vocabulary',
-    MAIN_VOCABULARY_LEFT_TO_REPEAT = 'vocabularyLeftToPractice',
-    CHERRY_PICKED_WORDS = 'cherryPickedWords',
-    SUPER_CHERRY_PICKED_WORDS = 'superCherryPickedWords',
-    REPORTED_WORDS = 'reportedWords',
-    TRANSLATION_MODE_J_TO_E = 'translationModeJpToEn',
-    VOCABULARY_DISPLAY_SETTING = 'vocabularyDisplaySetting',
-    REVERTED_VOCABULARY_ORDER = 'revertedVocabularyOrder',
+    CENTRAL_LIBRARY = 'centralLibrary',
+    EVERYDAY_PRACTICE_QUEUE = 'everydayPracticeQueue',
+    CHERRY_PICK_LIBRARY = 'cherryPickLibrary',
+    SUPER_CHERRY_PICK_LIBRARY = 'superCherryPickLibrary',
+    LEX_2_FIX = 'lex2Fix',
+
     SESSION_HISTORY = 'sessionHistory',
+
+    DISPLAY_DECK_OVERVIEW = 'displayDeckOverview',
+    REVERT_ORDER = 'revertOrder',
+    JP_2_EN_MODE = 'translationModeJpToEn',
 }
 
 export interface LexUnit {

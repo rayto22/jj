@@ -22,7 +22,7 @@ export const FinishSessionButton: FC<Props> = ({
     const onTaskEnd = () => {
         if (sessionType === SESSION_TYPE.EVERYDAY_PRACTICE) {
             saveData(
-                STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT,
+                STORAGE_KEY.EVERYDAY_PRACTICE_QUEUE,
                 leftToPracticeAfterFinishing
             );
             navigate(PARENT_ROUTE.EVERYDAY_PRACTICE);

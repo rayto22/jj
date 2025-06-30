@@ -4,21 +4,17 @@ import { loadData } from '@/utils/dataManager';
 import CherryPickWordList from '../sidebar/CherryPickWordList';
 
 interface Props {
-    fullSessionVocabulary: LexUnits;
+    deck: LexUnits;
     cherryPickStorageKey?: STORAGE_KEY;
 }
 
-export const DeckOverview: FC<Props> = ({
-    fullSessionVocabulary,
-    cherryPickStorageKey,
-}) => {
-    const isSettingoOn =
-        loadData(STORAGE_KEY.VOCABULARY_DISPLAY_SETTING) ?? false;
+export const DeckOverview: FC<Props> = ({ deck, cherryPickStorageKey }) => {
+    const isSettingoOn = loadData(STORAGE_KEY.DISPLAY_DECK_OVERVIEW) ?? false;
 
     return (
         isSettingoOn && (
             <CherryPickWordList
-                fullSessionVocabulary={fullSessionVocabulary}
+                deck={deck}
                 cherryPickStorageKey={cherryPickStorageKey}
                 sidebarIndex={2}
             />

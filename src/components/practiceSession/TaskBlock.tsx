@@ -3,7 +3,7 @@ import { STORAGE_KEY, LexUnit } from '@/interfaces/types';
 import { loadData } from '@/utils/dataManager';
 import TaskOutput from './TaskOutput';
 import TaskRomaji from './TaskRomaji';
-import TaskHelp from './TasxHelp';
+import TaskHelp from './TaskHelp';
 import { styled } from 'styled-components';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const TaskBlock: FC<Props> = ({ task, goToNextTask }) => {
-    const isModeJpToEng = loadData(STORAGE_KEY.TRANSLATION_MODE_J_TO_E) ?? true;
+    const isModeJpToEng = loadData(STORAGE_KEY.JP_2_EN_MODE) ?? true;
     const { question, answer } = isModeJpToEng
         ? { question: task.kanamoji, answer: task.eng }
         : { question: task.eng, answer: task.kanamoji };

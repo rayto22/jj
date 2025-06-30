@@ -2,7 +2,7 @@ import { STORAGE_KEY } from '@/interfaces/types';
 import { useCachedWords } from './useCachedWords';
 
 export const useCherryPickedWords = ({
-    lsKey = STORAGE_KEY.CHERRY_PICKED_WORDS,
+    lsKey = STORAGE_KEY.CHERRY_PICK_LIBRARY,
 }: {
     lsKey?: STORAGE_KEY;
 } = {}) => {

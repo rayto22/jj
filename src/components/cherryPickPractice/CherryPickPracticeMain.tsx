@@ -9,16 +9,16 @@ export const CherryPickPracticeMain = () => {
     const navigate = useNavigate();
     const forceUpdate = useForceUpdate();
 
-    const cherryPickedWords = loadData(STORAGE_KEY.CHERRY_PICKED_WORDS) || [];
+    const cherryPickedWords = loadData(STORAGE_KEY.CHERRY_PICK_LIBRARY) || [];
     const superCherryPickedWords =
-        loadData(STORAGE_KEY.SUPER_CHERRY_PICKED_WORDS) || [];
+        loadData(STORAGE_KEY.SUPER_CHERRY_PICK_LIBRARY) || [];
     const startPractice = ({ isSuper }: { isSuper?: boolean } = {}) => {
-        navigate(CHILD_ROUTE.PRACTICE_SESSION, {
+        navigate(CHILD_ROUTE.TOME_SELECTION, {
             state: {
                 customLibrary: isSuper
                     ? superCherryPickedWords
                     : cherryPickedWords,
-                cherryPickStorageKey: STORAGE_KEY.SUPER_CHERRY_PICKED_WORDS,
+                cherryPickStorageKey: STORAGE_KEY.SUPER_CHERRY_PICK_LIBRARY, FIX THIS
             },
         });
     };
@@ -26,8 +26,8 @@ export const CherryPickPracticeMain = () => {
         const result = confirm('Load super cherry pick base?');
 
         if (result) {
-            saveData(STORAGE_KEY.CHERRY_PICKED_WORDS, superCherryPickedWords);
-            saveData(STORAGE_KEY.SUPER_CHERRY_PICKED_WORDS, []);
+            saveData(STORAGE_KEY.CHERRY_PICK_LIBRARY, superCherryPickedWords);
+            saveData(STORAGE_KEY.SUPER_CHERRY_PICK_LIBRARY, []);
             forceUpdate();
         }
     };
@@ -35,7 +35,7 @@ export const CherryPickPracticeMain = () => {
         const result = confirm('Clear cherry pick?');
 
         if (result) {
-            saveData(STORAGE_KEY.CHERRY_PICKED_WORDS, []);
+            saveData(STORAGE_KEY.CHERRY_PICK_LIBRARY, []);
             forceUpdate();
         }
     };

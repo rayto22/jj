@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Sidebar from '../sidebar/Sidebar';
 import TranslationMode from './TranslationMode';
-import VocabularyDisplaySetting from './VocabularyDisplaySetting';
+import { DeckOverviewCheckbox } from './DeckOverviewCheckbox';
 import { styled } from 'styled-components';
 
 const Settings: FC = () => {
@@ -9,7 +9,7 @@ const Settings: FC = () => {
         <Sidebar sidebarIndex={1}>
             <ListWrap>
                 <TranslationMode />
-                <VocabularyDisplaySetting />
+                <DeckOverviewCheckbox />
             </ListWrap>
         </Sidebar>
     );

@@ -6,16 +6,16 @@ import { useCherryPickedWords } from '@/hooks/useCherryPickedWords';
 import { useReportedWords } from '@/hooks/useReportedWords';
 
 interface Props {
-    fullSessionVocabulary: LexUnits;
+    deck: LexUnits;
     currentTaskIndex?: number;
     cherryPickStorageKey?: STORAGE_KEY;
     sidebarIndex?: number;
 }
 
 const CherryPickWordList: FC<Props> = ({
-    fullSessionVocabulary,
+    deck,
     currentTaskIndex,
-    cherryPickStorageKey = STORAGE_KEY.CHERRY_PICKED_WORDS,
+    cherryPickStorageKey = STORAGE_KEY.CHERRY_PICK_LIBRARY,
     sidebarIndex = 0,
 }) => {
     const { isWordCherryPicked, cherryPickWord } = useCherryPickedWords({
@@ -24,7 +24,7 @@ const CherryPickWordList: FC<Props> = ({
     const { isWordReported, reportWord } = useReportedWords();
 
     const getProcessedWords = () => {
-        const sessionWordsCopy = [...fullSessionVocabulary];
+        const sessionWordsCopy = [...deck];
 
         if (Number.isInteger(currentTaskIndex)) {
             sessionWordsCopy.length = currentTaskIndex + 1;

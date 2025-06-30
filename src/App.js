@@ -9,7 +9,8 @@ import { HiraganaPracticeMain } from './components/hiraganaPractice/HiraganaPrac
 import { Library } from './components/library/Library';
 import { EverydayPracticeMain } from './components/everydayPractice/EverydayPracticeMain';
 import { CherryPickPracticeMain } from './components/cherryPickPractice/CherryPickPracticeMain';
-import { ReportedWordsPage } from './components/library/ReportedWordsPage';
+import { LexFixMain } from './components/lexFix/LexFixMain';
+import { PracticeSession } from './components/practiceSession/PracticeSession';
 
 import GlobalStyle from './styles/globalStyle';
 
@@ -26,8 +27,14 @@ function App() {
                 />
                 <Route
                     path={PARENT_ROUTE.REGULAR_PRACTICE}
-                    element={<Library />}
-                ></Route>
+                    element={<EmptyRouteLayout />}
+                >
+                    <Route index element={<Library />} />
+                    <Route
+                        path={CHILD_ROUTE.PRACTICE_SESSION}
+                        element={<PracticeSession />}
+                    />
+                </Route>
 
                 <Route
                     path={PARENT_ROUTE.EVERYDAY_PRACTICE}
@@ -36,7 +43,7 @@ function App() {
                     <Route index element={<EverydayPracticeMain />} />
                     <Route
                         path={CHILD_ROUTE.PRACTICE_SESSION}
-                        element={<Library />}
+                        element={<PracticeSession />}
                     />
                 </Route>
 
@@ -46,15 +53,12 @@ function App() {
                 >
                     <Route index element={<CherryPickPracticeMain />} />
                     <Route
-                        path={CHILD_ROUTE.PRACTICE_SESSION}
+                        path={CHILD_ROUTE.TOME_SELECTION}
                         element={<Library />}
                     />
                 </Route>
 
-                <Route
-                    path={PARENT_ROUTE.REPORTED_WORDS}
-                    element={<ReportedWordsPage />}
-                />
+                <Route path={PARENT_ROUTE.LEX_2_FIX} element={<LexFixMain />} />
             </Routes>
         </HashRouter>
     );

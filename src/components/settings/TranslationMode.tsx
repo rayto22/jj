@@ -4,11 +4,11 @@ import { STORAGE_KEY } from '@/interfaces/types';
 
 const TranslationMode: FC = () => {
     const [isJpToEn, setIsJpToEn] = useState<boolean>(
-        () => loadData(STORAGE_KEY.TRANSLATION_MODE_J_TO_E) ?? true
+        () => loadData(STORAGE_KEY.JP_2_EN_MODE) ?? true
     );
     const onModeChange = () => {
         setIsJpToEn((state) => {
-            saveData(STORAGE_KEY.TRANSLATION_MODE_J_TO_E, !state);
+            saveData(STORAGE_KEY.JP_2_EN_MODE, !state);
             return !state;
         });
     };

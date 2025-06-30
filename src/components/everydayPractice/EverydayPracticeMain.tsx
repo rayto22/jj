@@ -18,9 +18,8 @@ export const EverydayPracticeMain = () => {
     const navigate = useNavigate();
 
     const localStorageData = {
-        library: loadData(STORAGE_KEY.MAIN_VOCABULARY) ?? [],
-        leftToPractice:
-            loadData(STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT) ?? [],
+        library: loadData(STORAGE_KEY.CENTRAL_LIBRARY) ?? [],
+        leftToPractice: loadData(STORAGE_KEY.EVERYDAY_PRACTICE_QUEUE) ?? [],
         sessionHistory: loadData(STORAGE_KEY.SESSION_HISTORY) ?? [],
     };
 
@@ -33,14 +32,14 @@ export const EverydayPracticeMain = () => {
         loadLibrary().then((payloadUnshaffled: LexUnits) => {
             const payload = shuffle(payloadUnshaffled);
 
-            saveData(STORAGE_KEY.MAIN_VOCABULARY, payload);
-            saveData(STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT, payload);
+            saveData(STORAGE_KEY.CENTRAL_LIBRARY, payload);
+            saveData(STORAGE_KEY.EVERYDAY_PRACTICE_QUEUE, payload);
             setLibrary(payload);
         });
     };
 
     const startSession = () => {
-        const sessionTask = localStorageData.leftToPractice.slice(
+        const deck = localStorageData.leftToPractice.slice(
             0,
             practiceChunkSize
         );
@@ -55,7 +54,7 @@ export const EverydayPracticeMain = () => {
 
         navigate(CHILD_ROUTE.PRACTICE_SESSION, {
             state: {
-                sessionTask,
+                deck,
                 leftToPracticeAfterFinishing: leftToPractice,
             },
         });
@@ -64,8 +63,8 @@ export const EverydayPracticeMain = () => {
     const clearAll = () => {
         if (!confirm('Clear all?')) return;
 
-        saveData(STORAGE_KEY.MAIN_VOCABULARY, []);
-        saveData(STORAGE_KEY.MAIN_VOCABULARY_LEFT_TO_REPEAT, []);
+        saveData(STORAGE_KEY.CENTRAL_LIBRARY, []);
+        saveData(STORAGE_KEY.EVERYDAY_PRACTICE_QUEUE, []);
         setLibrary([]);
     };
 

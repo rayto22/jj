@@ -4,7 +4,7 @@ import { PARENT_ROUTE, STORAGE_KEY } from '../interfaces/types';
 import { loadData } from '@/utils/dataManager';
 
 export default function IndexPage() {
-    const hasReportedWords = loadData(STORAGE_KEY.REPORTED_WORDS)?.length;
+    const hasReportedWords = loadData(STORAGE_KEY.LEX_2_FIX)?.length;
 
     return (
         <div>
@@ -30,9 +30,7 @@ export default function IndexPage() {
                 </li>
                 {hasReportedWords ? (
                     <li>
-                        <Link to={PARENT_ROUTE.REPORTED_WORDS}>
-                            Reported Words
-                        </Link>
+                        <Link to={PARENT_ROUTE.LEX_2_FIX}>Lex 2 Fix</Link>
                     </li>
                 ) : null}
             </ul>

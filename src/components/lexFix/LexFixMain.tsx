@@ -3,8 +3,8 @@ import { LexUnit } from '@/interfaces/types';
 import { useReportedWords } from '@/hooks/useReportedWords';
 import SelectableList from '../sidebar/SelectableList';
 
-export const ReportedWordsPage: FC = () => {
-    const { reportedWords, isWordReported, reportWord, resetReport } =
+export const LexFixMain: FC = () => {
+    const { lexToFix, isWordReported, reportWord, resetReport } =
         useReportedWords();
     const reportWordWithConfirmation = (item: LexUnit) => {
         if (confirm('Is this word fixed?')) reportWord(item);
@@ -21,7 +21,7 @@ export const ReportedWordsPage: FC = () => {
                 </button>
             </div>
             <SelectableList
-                list={reportedWords}
+                list={lexToFix}
                 isSelected={() => false}
                 onSelect={() => null}
                 isWordReported={isWordReported}
