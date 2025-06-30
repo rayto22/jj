@@ -18,7 +18,7 @@ export const CherryPickPracticeMain = () => {
                 customLibrary: isSuper
                     ? superCherryPickedWords
                     : cherryPickedWords,
-                cherryPickStorageKey: STORAGE_KEY.SUPER_CHERRY_PICK_LIBRARY, FIX THIS
+                cherryPickStorageKey: STORAGE_KEY.SUPER_CHERRY_PICK_LIBRARY, FIX THIS (use different route and instad and check it where needed)
             },
         });
     };
