@@ -1,12 +1,19 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { PARENT_ROUTE } from '@/interfaces/types';
+import { PARENT_ROUTE, CHILD_ROUTE } from '@/interfaces/types';
 
 const GoHomeButton = () => {
     const navigate = useNavigate();
-    return (
-        <RoundButton onClick={() => navigate(PARENT_ROUTE.HOME)}>⌂</RoundButton>
-    );
+    const location = useLocation();
+    const onClick = () => {
+        if (location.pathname.includes(CHILD_ROUTE.PRACTICE_SESSION)) {
+            confirm('Go Home?') && navigate(PARENT_ROUTE.HOME);
+        } else {
+            navigate(PARENT_ROUTE.HOME);
+        }
+    };
+
+    return <RoundButton onClick={onClick}>⌂</RoundButton>;
 };
 
 const RoundButton = styled.button`
