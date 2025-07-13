@@ -10,6 +10,8 @@ export enum PARENT_ROUTE {
 export enum CHILD_ROUTE {
     PRACTICE_SESSION = 'play',
     TOME_SELECTION = 'tome',
+    CHERRY_PICK_LIBRARY = 'cherryPickLibrary',
+    SUPER_CHERRY_PICK_LIBRARY = 'superCherryPickLibrary',
 }
 
 export enum STORAGE_KEY {

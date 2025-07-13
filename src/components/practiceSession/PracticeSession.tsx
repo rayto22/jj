@@ -37,13 +37,9 @@ export const PracticeSession: FC = () => {
                 <CherryPickWordList
                     deck={deck}
                     currentTaskIndex={currentTaskIndex}
-                    cherryPickStorageKey={locationState?.cherryPickStorageKey}
                 />
                 <Settings />
-                <DeckOverview
-                    deck={deck}
-                    cherryPickStorageKey={locationState?.cherryPickStorageKey}
-                />
+                <DeckOverview deck={deck} />
                 {!currentTask ? (
                     <>
                         <div>End</div>

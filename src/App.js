@@ -1,6 +1,6 @@
 import { Routes, Route, HashRouter } from 'react-router-dom';
 
-import { PARENT_ROUTE, CHILD_ROUTE } from '@/interfaces/types';
+import { PARENT_ROUTE, CHILD_ROUTE } from './interfaces/types';
 
 import { EmptyRouteLayout } from './components/shared/EmptyRouteLayout';
 import GoHomeButton from './components/settings/GoHomeButton';
@@ -14,6 +14,19 @@ import { PracticeSession } from './components/practiceSession/PracticeSession';
 
 import GlobalStyle from './styles/globalStyle';
 
+// eslint-disable-next-line react/prop-types
+function getLibraryAndPracticeSessionRoots({ libraryPath }) {
+    return (
+        <Route path={libraryPath} element={<EmptyRouteLayout />}>
+            <Route index element={<Library />} />
+            <Route
+                path={CHILD_ROUTE.PRACTICE_SESSION}
+                element={<PracticeSession />}
+            />
+        </Route>
+    );
+}
+
 function App() {
     return (
         <HashRouter>
@@ -25,16 +38,10 @@ function App() {
                     path={PARENT_ROUTE.HIRAGANA}
                     element={<HiraganaPracticeMain />}
                 />
-                <Route
-                    path={PARENT_ROUTE.REGULAR_PRACTICE}
-                    element={<EmptyRouteLayout />}
-                >
-                    <Route index element={<Library />} />
-                    <Route
-                        path={CHILD_ROUTE.PRACTICE_SESSION}
-                        element={<PracticeSession />}
-                    />
-                </Route>
+
+                {getLibraryAndPracticeSessionRoots({
+                    libraryPath: PARENT_ROUTE.REGULAR_PRACTICE,
+                })}
 
                 <Route
                     path={PARENT_ROUTE.EVERYDAY_PRACTICE}
@@ -52,10 +59,12 @@ function App() {
                     element={<EmptyRouteLayout />}
                 >
                     <Route index element={<CherryPickPracticeMain />} />
-                    <Route
-                        path={CHILD_ROUTE.TOME_SELECTION}
-                        element={<Library />}
-                    />
+                    {getLibraryAndPracticeSessionRoots({
+                        libraryPath: CHILD_ROUTE.CHERRY_PICK_LIBRARY,
+                    })}
+                    {getLibraryAndPracticeSessionRoots({
+                        libraryPath: CHILD_ROUTE.SUPER_CHERRY_PICK_LIBRARY,
+                    })}
                 </Route>
 
                 <Route path={PARENT_ROUTE.LEX_2_FIX} element={<LexFixMain />} />

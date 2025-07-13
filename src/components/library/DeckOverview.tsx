@@ -5,19 +5,10 @@ import CherryPickWordList from '../sidebar/CherryPickWordList';
 
 interface Props {
     deck: LexUnits;
-    cherryPickStorageKey?: STORAGE_KEY;
 }
 
-export const DeckOverview: FC<Props> = ({ deck, cherryPickStorageKey }) => {
+export const DeckOverview: FC<Props> = ({ deck }) => {
     const isSettingoOn = loadData(STORAGE_KEY.DISPLAY_DECK_OVERVIEW) ?? false;
 
-    return (
-        isSettingoOn && (
-            <CherryPickWordList
-                deck={deck}
-                cherryPickStorageKey={cherryPickStorageKey}
-                sidebarIndex={2}
-            />
-        )
-    );
+    return isSettingoOn && <CherryPickWordList deck={deck} sidebarIndex={2} />;
 };

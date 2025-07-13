@@ -13,12 +13,14 @@ export const CherryPickPracticeMain = () => {
     const superCherryPickedWords =
         loadData(STORAGE_KEY.SUPER_CHERRY_PICK_LIBRARY) || [];
     const startPractice = ({ isSuper }: { isSuper?: boolean } = {}) => {
-        navigate(CHILD_ROUTE.TOME_SELECTION, {
+        const path = isSuper
+            ? CHILD_ROUTE.SUPER_CHERRY_PICK_LIBRARY
+            : CHILD_ROUTE.CHERRY_PICK_LIBRARY;
+        const library = isSuper ? superCherryPickedWords : cherryPickedWords;
+
+        navigate(path, {
             state: {
-                customLibrary: isSuper
-                    ? superCherryPickedWords
-                    : cherryPickedWords,
-                cherryPickStorageKey: STORAGE_KEY.SUPER_CHERRY_PICK_LIBRARY, FIX THIS (use different route and instad and check it where needed)
+                customLibrary: library,
             },
         });
     };
