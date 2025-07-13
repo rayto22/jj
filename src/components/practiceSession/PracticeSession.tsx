@@ -1,5 +1,6 @@
 import { useState, FC } from 'react';
-import { LexUnits, LexUnit, SESSION_TYPE } from '@/interfaces/types';
+import { LexUnits, LexUnit, STORAGE_KEY } from '@/interfaces/types';
+import { saveData } from '@/utils/dataManager';
 import { shuffle } from '@/utils/utils';
 
 import { CachedWordsContextProvider } from '@/context/CachedWordsContext';
@@ -46,16 +47,18 @@ export const PracticeSession: FC = () => {
                         <button onClick={shuffleAndPractice}>
                             Restart Exercise
                         </button>
-                        ;
+
                         <FinishSessionButton
-                            sessionType={
-                                locationState?.leftToPracticeAfterFinishing
-                                    ? SESSION_TYPE.EVERYDAY_PRACTICE
-                                    : SESSION_TYPE.REGULAR_PRACTICE
-                            }
-                            leftToPracticeAfterFinishing={
-                                locationState?.leftToPracticeAfterFinishing
-                            }
+                            onFinish={() => {
+                                if (
+                                    locationState?.leftToPracticeAfterFinishing
+                                ) {
+                                    saveData(
+                                        STORAGE_KEY.EVERYDAY_PRACTICE_QUEUE,
+                                        locationState.leftToPracticeAfterFinishing
+                                    );
+                                }
+                            }}
                         />
                     </>
                 ) : (
