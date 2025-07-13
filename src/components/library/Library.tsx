@@ -1,12 +1,13 @@
 import { useState, FC, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LexUnits, CHILD_ROUTE } from '@/interfaces/types';
+import { LexUnits, CHILD_ROUTE, STORAGE_KEY, SORT } from '@/interfaces/types';
 
 import { loadLibrary } from '@/utils/sheetManager';
 import { shuffle } from '@/utils/utils';
 
-import { ReorderButton } from './ReorderButton';
+import { SortByDateButton } from './SortByDateButton';
 import Tomes from './Tomes';
+import { loadData } from '@/utils/dataManager';
 
 export const Library: FC = () => {
     const navigate = useNavigate();
@@ -17,11 +18,15 @@ export const Library: FC = () => {
     const [deck, setDeck] = useState<LexUnits>(null);
 
     useEffect(() => {
+        const isDescSorted = loadData(STORAGE_KEY.TOME_SORT) === SORT.DESC;
+
         if (customLibrary) {
-            setLibrary(customLibrary);
+            setLibrary(
+                isDescSorted ? [...customLibrary].reverse() : customLibrary
+            );
         } else {
             loadLibrary().then((response: LexUnits) => {
-                setLibrary(response);
+                setLibrary(isDescSorted ? [...response].reverse() : response);
             });
         }
     }, []);
@@ -36,8 +41,8 @@ export const Library: FC = () => {
 
     return (
         <>
-            <ReorderButton
-                revert={() => setLibrary((state) => [...state.reverse()])}
+            <SortByDateButton
+                sort={() => setLibrary((state) => [...state].reverse())}
             />
             <Tomes
                 onTomeSelect={(tome) => setDeck(shuffle(tome))}

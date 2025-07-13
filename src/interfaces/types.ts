@@ -27,7 +27,13 @@ export enum STORAGE_KEY {
     REVERT_ORDER = 'revertOrder',
     JP_2_EN_MODE = 'translationModeJpToEn',
     TOME_SIZE = 'tomeSize',
+    TOME_SORT = 'tomeSort',
     EVERYDAY_PRACTICE_DECK_SIZE = 'everydayPracticeDeckSize',
+}
+
+export enum SORT {
+    ASC = 'asc',
+    DESC = 'desc',
 }
 
 export interface LexUnit {
