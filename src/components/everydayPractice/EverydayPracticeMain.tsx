@@ -21,6 +21,7 @@ export const EverydayPracticeMain = () => {
         library: loadData(STORAGE_KEY.CENTRAL_LIBRARY) ?? [],
         leftToPractice: loadData(STORAGE_KEY.EVERYDAY_PRACTICE_QUEUE) ?? [],
         sessionHistory: loadData(STORAGE_KEY.SESSION_HISTORY) ?? [],
+        cherryPickedWords: loadData(STORAGE_KEY.CHERRY_PICK_LIBRARY) ?? [],
     };
 
     const [library, setLibrary] = useState<LexUnits>(localStorageData.library);
@@ -95,6 +96,10 @@ export const EverydayPracticeMain = () => {
                     <tr>
                         <StatusHeading># Left:</StatusHeading>
                         <td>{localStorageData.leftToPractice.length}</td>
+                    </tr>
+                    <tr>
+                        <StatusHeading># ChP:</StatusHeading>
+                        <td>{localStorageData.cherryPickedWords.length}</td>
                     </tr>
                 </tbody>
             </StatusTable>
