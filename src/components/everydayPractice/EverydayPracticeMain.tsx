@@ -17,15 +17,16 @@ import { Select } from '../shared/Select';
 export const EverydayPracticeMain = () => {
     const navigate = useNavigate();
 
-    const localStorageData = {
+    const savedData = {
         library: loadData(STORAGE_KEY.CENTRAL_LIBRARY) ?? [],
         leftToPractice: loadData(STORAGE_KEY.EVERYDAY_PRACTICE_QUEUE) ?? [],
         sessionHistory: loadData(STORAGE_KEY.SESSION_HISTORY) ?? [],
         cherryPickedWords: loadData(STORAGE_KEY.CHERRY_PICK_LIBRARY) ?? [],
+        deckSizeValue: loadData(STORAGE_KEY.EVERYDAY_PRACTICE_DECK_SIZE) ?? 100,
     };
 
-    const [library, setLibrary] = useState<LexUnits>(localStorageData.library);
-    const [practiceChunkSize, setPracticeChunkSize] = useState<number>(100);
+    const [library, setLibrary] = useState<LexUnits>(savedData.library);
+    const [deckSize, setDeckSize] = useState<number>(savedData.deckSizeValue);
 
     const loadLatestLibrary = () => {
         if (!confirm('Load latest?')) return;
@@ -40,16 +41,11 @@ export const EverydayPracticeMain = () => {
     };
 
     const startSession = () => {
-        const deck = localStorageData.leftToPractice.slice(
-            0,
-            practiceChunkSize
-        );
-        const leftToPractice = localStorageData.leftToPractice[
-            practiceChunkSize
-        ]
-            ? localStorageData.leftToPractice.slice(
-                  practiceChunkSize,
-                  localStorageData.leftToPractice.length
+        const deck = savedData.leftToPractice.slice(0, deckSize);
+        const leftToPractice = savedData.leftToPractice[deckSize]
+            ? savedData.leftToPractice.slice(
+                  deckSize,
+                  savedData.leftToPractice.length
               )
             : [];
 
@@ -69,6 +65,15 @@ export const EverydayPracticeMain = () => {
         setLibrary([]);
     };
 
+    const onDeckSizeSelectChange = (
+        e: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        const newDeckSize = +e.target.value;
+
+        setDeckSize(newDeckSize);
+        saveData(STORAGE_KEY.EVERYDAY_PRACTICE_DECK_SIZE, newDeckSize);
+    };
+
     return (
         <div>
             <div>
@@ -82,9 +87,9 @@ export const EverydayPracticeMain = () => {
             </div>
             <div>
                 <Select
-                    value={practiceChunkSize}
+                    value={deckSize}
                     optionsList={[100, 50, 25, 15, 5]}
-                    onChange={(e) => setPracticeChunkSize(+e.target.value)}
+                    onChange={onDeckSizeSelectChange}
                 />
             </div>
             <StatusTable>
@@ -95,18 +100,18 @@ export const EverydayPracticeMain = () => {
                     </tr>
                     <tr>
                         <StatusHeading># Left:</StatusHeading>
-                        <td>{localStorageData.leftToPractice.length}</td>
+                        <td>{savedData.leftToPractice.length}</td>
                     </tr>
                     <tr>
                         <StatusHeading># ChP:</StatusHeading>
-                        <td>{localStorageData.cherryPickedWords.length}</td>
+                        <td>{savedData.cherryPickedWords.length}</td>
                     </tr>
                 </tbody>
             </StatusTable>
-            {localStorageData.sessionHistory && (
+            {savedData.sessionHistory && (
                 <StatusTable>
                     <tbody>
-                        {localStorageData.sessionHistory.map(
+                        {savedData.sessionHistory.map(
                             (sessionData: SessionData) => (
                                 <Fragment key={sessionData.date}>
                                     <tr>
