@@ -26,6 +26,7 @@ export enum STORAGE_KEY {
     DISPLAY_DECK_OVERVIEW = 'displayDeckOverview',
     REVERT_ORDER = 'revertOrder',
     JP_2_EN_MODE = 'translationModeJpToEn',
+    TOME_SIZE = 'tomeSize',
     EVERYDAY_PRACTICE_DECK_SIZE = 'everydayPracticeDeckSize',
 }
 

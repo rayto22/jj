@@ -65,15 +65,6 @@ export const EverydayPracticeMain = () => {
         setLibrary([]);
     };
 
-    const onDeckSizeSelectChange = (
-        e: React.ChangeEvent<HTMLSelectElement>
-    ) => {
-        const newDeckSize = +e.target.value;
-
-        setDeckSize(newDeckSize);
-        saveData(STORAGE_KEY.EVERYDAY_PRACTICE_DECK_SIZE, newDeckSize);
-    };
-
     return (
         <div>
             <div>
@@ -89,7 +80,8 @@ export const EverydayPracticeMain = () => {
                 <Select
                     value={deckSize}
                     optionsList={[100, 50, 25, 15, 5]}
-                    onChange={onDeckSizeSelectChange}
+                    onChange={(newValue) => setDeckSize(newValue)}
+                    storageKey={STORAGE_KEY.EVERYDAY_PRACTICE_DECK_SIZE}
                 />
             </div>
             <StatusTable>

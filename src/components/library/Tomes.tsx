@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react';
-import { LexUnits } from '../../interfaces/types';
+import { LexUnits, STORAGE_KEY } from '../../interfaces/types';
 import { Select } from '../shared/Select';
 import Tome from './Tome';
 
@@ -32,7 +32,8 @@ const Tomes: FC<Props> = ({ onTomeSelect, library }) => {
             <Select
                 value={tomeSize}
                 optionsList={[100, 50, 25, 5]}
-                onChange={(e) => setTomeSize(+e.target.value)}
+                storageKey={STORAGE_KEY.TOME_SIZE}
+                onChange={(newValue) => setTomeSize(newValue)}
             />
             <ul>
                 {tomes.map((tome, index) => (
