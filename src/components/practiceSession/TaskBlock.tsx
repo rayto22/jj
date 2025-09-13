@@ -5,6 +5,7 @@ import TaskOutput from './TaskOutput';
 import TaskRomaji from './TaskRomaji';
 import TaskHelp from './TaskHelp';
 import { styled } from 'styled-components';
+import { TaskKanji } from './TaskKanji';
 
 interface Props {
     task: LexUnit;
@@ -21,6 +22,7 @@ export const TaskBlock: FC<Props> = ({ task, goToNextTask }) => {
         <Container>
             <TaskOutput task={question} />
             <CenteredDiv>
+                <TaskKanji kanji={task.kanji} />
                 <TaskRomaji romaji={task.romaji} />
                 <TaskHelp hint={answer} onSecondClick={goToNextTask} />
             </CenteredDiv>

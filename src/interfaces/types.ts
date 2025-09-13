@@ -41,6 +41,7 @@ export interface LexUnit {
     romaji: string;
     eng: string;
     tags?: string | Array<string>;
+    kanji?: string;
 }
 
 export type LexUnits = Array<LexUnit>;

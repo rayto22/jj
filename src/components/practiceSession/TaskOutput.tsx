@@ -11,7 +11,7 @@ const TaskOutput: FC<Props> = ({ task }) => {
 
 const TaskContainer = styled.div`
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
 `;
 
 export default TaskOutput;

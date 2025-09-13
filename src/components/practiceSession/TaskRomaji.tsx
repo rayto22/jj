@@ -19,13 +19,13 @@ const TaskRomaji: FC<Props> = ({ romaji }) => {
     }, [romaji]);
 
     return (
-        <StyledButton $isVisible={showRomaji}>
+        <StyledDiv $isVisible={showRomaji}>
             {showRomaji ? romaji : 'Romaji'}
-        </StyledButton>
+        </StyledDiv>
     );
 };
 
-const StyledButton = styled.button<{ $isVisible: boolean }>`
+const StyledDiv = styled.div<{ $isVisible: boolean }>`
     display: block;
     border: 0;
     border-top: 1px solid grey;

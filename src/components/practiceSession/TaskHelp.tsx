@@ -26,14 +26,13 @@ const TaskHelp: FC<Props> = ({ hint, onSecondClick }) => {
     }, [hint]);
 
     return (
-        <StyledButton $isVisible={showHelp}>
-            {showHelp ? hint : 'Help'}
-        </StyledButton>
+        <StyledDiv $isVisible={showHelp}>{showHelp ? hint : 'Help'}</StyledDiv>
     );
 };
 
-const StyledButton = styled.button<{ $isVisible: boolean }>`
+const StyledDiv = styled.div<{ $isVisible: boolean }>`
     display: block;
+    text-align: center;
     border: 0;
     border-top: 1px solid grey;
     ${({ $isVisible }) => !$isVisible && `display: none;`}
