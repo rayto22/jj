@@ -12,6 +12,7 @@ export const TaskKanji: FC<Props> = ({ kanji }) => {
 };
 
 const TaskContainer = styled.div`
+    font-family: 'Noto Sans JP', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     text-align: center;
     font-size: 40px;
     border-top: 1px solid grey;

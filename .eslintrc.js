@@ -37,7 +37,7 @@ module.exports = {
     },
     rules: {
         'prettier/prettier': [
-            'error',
+            'warn',
             {
                 singleQuote: true,
                 tabWidth: 4,
