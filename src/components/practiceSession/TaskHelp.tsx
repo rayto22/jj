@@ -1,29 +1,27 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 import useSideActions from '../../hooks/useSideActions';
 import styled from 'styled-components';
 
 interface Props {
     hint: string;
     onSecondClick: () => void;
+    onAnswerToggle: (show: boolean) => void;
 }
 
-const TaskHelp: FC<Props> = ({ hint, onSecondClick }) => {
+const TaskHelp: FC<Props> = ({ hint, onSecondClick, onAnswerToggle }) => {
     const [showHelp, setShowHelp] = useState<boolean>(false);
     const onClickHandler = () => {
         if (showHelp) {
             onSecondClick();
         }
 
+        onAnswerToggle(!showHelp);
         setShowHelp((state) => !state);
     };
 
     useSideActions({
         rightSideActionHandler: onClickHandler,
     });
-
-    useEffect(() => {
-        setShowHelp(false);
-    }, [hint]);
 
     return (
         <StyledDiv $isVisible={showHelp}>{showHelp ? hint : 'Help'}</StyledDiv>

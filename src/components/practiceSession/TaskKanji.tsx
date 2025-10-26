@@ -3,10 +3,13 @@ import { styled } from 'styled-components';
 
 interface Props {
     kanji: string;
+    isAnswerShown: boolean;
 }
 
-export const TaskKanji: FC<Props> = ({ kanji }) => {
-    if (!kanji || kanji.trim() === '-' || kanji.includes('　')) return null;
+export const TaskKanji: FC<Props> = ({ kanji, isAnswerShown }) => {
+    if (!kanji || kanji.trim() === '-') return null;
+
+    if (!isAnswerShown && kanji.includes('　')) return null;
 
     return <TaskContainer>{kanji}</TaskContainer>;
 };

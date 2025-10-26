@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { STORAGE_KEY, LexUnit } from '@/interfaces/types';
 import { loadData } from '@/utils/dataManager';
 import TaskOutput from './TaskOutput';
@@ -14,6 +14,7 @@ interface Props {
 
 export const TaskBlock: FC<Props> = ({ task, goToNextTask }) => {
     const isModeJpToEng = loadData(STORAGE_KEY.JP_2_EN_MODE) ?? true;
+    const [isAnswerShown, setIsAnswerShown] = useState<boolean>(false);
     const { question, answer } = isModeJpToEng
         ? { question: task.kanamoji, answer: task.eng }
         : { question: task.eng, answer: task.kanamoji };
@@ -22,9 +23,9 @@ export const TaskBlock: FC<Props> = ({ task, goToNextTask }) => {
         <Container>
             <TaskOutput task={question} />
             <CenteredDiv>
-                <TaskKanji kanji={task.kanji} />
+                <TaskKanji kanji={task.kanji} isAnswerShown={isAnswerShown} />
                 <TaskRomaji romaji={task.romaji} />
-                <TaskHelp hint={answer} onSecondClick={goToNextTask} />
+                <TaskHelp hint={answer} onSecondClick={goToNextTask} onAnswerToggle={setIsAnswerShown} />
             </CenteredDiv>
         </Container>
     );

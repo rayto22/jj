@@ -22,6 +22,7 @@ export enum STORAGE_KEY {
     LEX_2_FIX = 'lex2Fix',
 
     SESSION_HISTORY = 'sessionHistory',
+    LAST_TOME_RECORD = 'lastTomeRecord',
 
     DISPLAY_DECK_OVERVIEW = 'displayDeckOverview',
     REVERT_ORDER = 'revertOrder',

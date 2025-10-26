@@ -35,6 +35,8 @@ export const PracticeSessionContext = createContext({
     ...emptySessionData,
     updateSessionData: (newData: PartialSessionData): void =>
         console.log('Plug. New data received ' + newData),
+    updateLastTomeRecord: (tomeTitle: string): void =>
+        console.log('Plug. Tome title received ' + tomeTitle),
 });
 
 interface Props extends PropsWithChildren {
@@ -67,18 +69,26 @@ export const PracticeSessionContextProvider: FC<Props> = ({
             updateSessionData: (newData: PartialSessionData) => {
                 setSessionData((state) => ({ ...state, ...newData }));
             },
+            updateLastTomeRecord: (tomeTitle: string) => {
+                if (getSessionTypeFromPath() === SESSION_TYPE.REGULAR_PRACTICE) {
+                    saveData(STORAGE_KEY.LAST_TOME_RECORD, tomeTitle);
+                }
+            }
         }),
         [sessionData, isSessionInProgress]
     );
 
+    const getSessionTypeFromPath = (): SESSION_TYPE => {
+        return sessionRoutesMap[
+            Object.keys(sessionRoutesMap).find((route) =>
+                pathname.includes(route)
+            ) as keyof typeof sessionRoutesMap
+        ] ?? SESSION_TYPE.UNKNOWN;
+    };
+
     useEffect(() => {
         if (sessionData.date) {
-            const newSessionType =
-                sessionRoutesMap[
-                    Object.keys(sessionRoutesMap).find((route) =>
-                        pathname.includes(route)
-                    ) as keyof typeof sessionRoutesMap
-                ] ?? SESSION_TYPE.UNKNOWN;
+            const newSessionType = getSessionTypeFromPath();
 
             saveSessionRecord({
                 type: newSessionType,

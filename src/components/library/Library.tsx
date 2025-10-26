@@ -8,6 +8,7 @@ import { shuffle } from '@/utils/utils';
 import { SortByDateButton } from './SortByDateButton';
 import Tomes from './Tomes';
 import { loadData } from '@/utils/dataManager';
+import { PracticeSessionContextProvider } from '@/context/PracticeSessionContext';
 
 export const Library: FC = () => {
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ export const Library: FC = () => {
     }, [deck]);
 
     return (
-        <>
+        <PracticeSessionContextProvider isSessionInProgress={false}>
             <SortByDateButton
                 sort={() => setLibrary((state) => [...state].reverse())}
             />
@@ -48,6 +49,7 @@ export const Library: FC = () => {
                 onTomeSelect={(tome) => setDeck(shuffle(tome))}
                 library={library}
             ></Tomes>
-        </>
+            {!customLibrary ? <div>{loadData(STORAGE_KEY.LAST_TOME_RECORD)}</div> : null}
+        </PracticeSessionContextProvider>
     );
 };
